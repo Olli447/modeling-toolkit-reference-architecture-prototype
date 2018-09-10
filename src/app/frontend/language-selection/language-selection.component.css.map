@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,WAAY;EACV,QAAQ,EAAE,KAAK;EACf,GAAG,EAAE,CAAC;EACN,IAAI,EAAE,CAAC;EACP,KAAK,EAAE,CAAC;EACR,OAAO,EAAE,CAAC;;AAGZ,UAAW;EACT,KAAK,EAAE,GAAG;EACV,MAAM,EAAE,IAAI;;AAGd,SAAU;EACR,UAAU,EAAE,IAAI",
+"sources": ["language-selection.component.scss"],
+"names": [],
+"file": "language-selection.component.css"
+}

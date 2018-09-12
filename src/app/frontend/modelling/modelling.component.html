@@ -1,3 +1,22 @@
-<p>
-  modelling works!
-</p>
+<div class="app-container">
+    <app-toolbar></app-toolbar>
+
+    <mat-sidenav-container class="example-container">
+        <mat-sidenav class="elements" opened mode="side">
+            <app-elements-sidebar></app-elements-sidebar>
+        </mat-sidenav>
+        <mat-sidenav class="settings" opened mode="side" position="end">
+            <app-settings-sidebar></app-settings-sidebar>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <app-modelling-area></app-modelling-area>
+        </mat-sidenav-content>
+
+    </mat-sidenav-container>
+</div>
+
+
+
+
+
+

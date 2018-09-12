@@ -6,11 +6,24 @@ mat-toolbar {
   z-index: 2;
 }
 
-.languages {
+.languages-container {
   width: 80%;
   margin: auto;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .language {
-  background: gray;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 20px;
+}
+
+@media(max-width: 720px) {
+  .languages-container {
+    width: 100%;
+    margin: 0;
+  }
 }

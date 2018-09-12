@@ -1,0 +1,16 @@
+<div [style.height] = "loadingStatus === loadingStatusEnum.PENDING || loadingStatus === loadingStatusEnum.WORKING ? '100%' : '0'"
+     class="loading-screen-container">
+  <div class="loading-screen-content">
+    <h1>Loading</h1>
+    <div class="hollowLoader">
+      <div class="largeBox"></div>
+      <div class="smallBox"></div>
+    </div>
+    <div class="progressbar-container">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <h2 *ngIf="message" class="loading-screen-message">{{message}}</h2>
+  </div>
+
+</div>
+

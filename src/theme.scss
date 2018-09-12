@@ -1,5 +1,6 @@
 @import '~@angular/material/theming';
 @import 'app/frontend/language-selection/header/header.component-theme';
+@import 'app/frontend/loading-screen/loading-screen.component-theme';
 
 // Include non-theme styles for core.
 @include mat-core();
@@ -13,3 +14,4 @@ $theme: mat-light-theme($primary, $accent);
 // Include all theme styles for the components.
 @include angular-material-theme($theme);
 @include language-header-component-theme($theme);
+@include loading-screen-component-theme($theme);

@@ -1,0 +1,25 @@
+// Import Material Mixins
+@import '~@angular/material/theming';
+// Define a custom mixin that takes in the current theme
+@mixin loading-screen-component-theme($theme) {
+  // Parse the theme and create variables for each color in the pallete
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  // Create theme specfic styles
+  .loading-screen-container {
+    background-color: mat-color($accent);
+  }
+
+  $hollowLight: #ECECEC;
+  $hollowDark: #34495e;
+
+  .hollowLoader {
+    .largeBox {
+      background-color: $hollowLight;
+    }
+    .smallBox {
+      background-color: mat-color($primary);
+    }
+  }
+}

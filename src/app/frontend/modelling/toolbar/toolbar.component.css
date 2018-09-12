@@ -1,0 +1,12 @@
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0; }
+
+.toolbar-icon {
+  color: white;
+  font-size: 150% !important;
+  margin-top: 10px; }
+
+/*# sourceMappingURL=toolbar.component.css.map */

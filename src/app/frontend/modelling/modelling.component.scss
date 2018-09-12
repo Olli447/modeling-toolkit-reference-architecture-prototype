@@ -1,0 +1,21 @@
+.example-container {
+  position: absolute;
+  top: 60px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.elements,
+.settings {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+}
+.elements {
+  padding-right: 10px
+}
+.settings {
+  padding-left: 10px;
+}

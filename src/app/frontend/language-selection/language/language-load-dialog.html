@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Load model</h1>
+<div mat-dialog-content>
+    <p>Please make sure to load a model of type {{data.language.name}}</p>
+    <p>The loading procedure will fail if you try to load another type of model</p>
+    <mat-divider style="margin-top: 20px; margin-bottom: 20px;"></mat-divider>
+    <form #form="ngForm">
+        <div class="form-group">
+            <label style="margin-right: 10px;" for="file">Datei hochladen:</label>
+            <input type="file" id="file" (change)="onFileChange($event)">
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+</div>

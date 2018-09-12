@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,kBAAmB;EACjB,QAAQ,EAAE,QAAQ;EAClB,GAAG,EAAE,IAAI;EACT,MAAM,EAAE,CAAC;EACT,IAAI,EAAE,CAAC;EACP,KAAK,EAAE,CAAC;;AAGV;SACU;EACR,OAAO,EAAE,IAAI;EACb,WAAW,EAAE,MAAM;EACnB,eAAe,EAAE,MAAM;EACvB,KAAK,EAAE,KAAK;;AAEd,SAAU;EACR,aAAa,EAAE,IAAI;;AAErB,SAAU;EACR,YAAY,EAAE,IAAI",
+"sources": ["modelling.component.scss"],
+"names": [],
+"file": "modelling.component.css"
+}

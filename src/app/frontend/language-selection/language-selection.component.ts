@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Language} from '../../classes/language';
 
 @Component({
   selector: 'app-language-selection',
@@ -6,25 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./language-selection.component.scss']
 })
 export class LanguageSelectionComponent implements OnInit {
-    breakpoint: number;
+    languages: Language[];
 
-  constructor() { }
+  constructor() {
+      this.languages = [
+          new Language('1', 'UML class diagram', null, null, 'UML',  'Dies ist ein Test'),
+          new Language('2', 'MEMO Organisation Modelling Language', null, null, 'OrgML',  'Dies ist ein Test'),
+          new Language('3', 'Test3', null, null, null,  'Dies ist ein Test'),
+          new Language('4', 'Test4', null, null, null,  'Dies ist ein Test'),
+          new Language('5', 'Test5', null, null, null,  'Dies ist ein Test'),
+          new Language('6', 'Test6', null, null, null,  'Dies ist ein Test'),
+      ];
+  }
 
     ngOnInit() {
-        this.breakpoint = this.calcColums(window.innerWidth);
-    }
-
-    onResize(event) {
-        this.breakpoint = this.calcColums(event.target.innerWidth);
-    }
-
-    calcColums(width: number) {
-      if (width <= 1000) {
-          return 1;
-      } else if (1000 < width && width <= 1500) {
-          return 3;
-      } else {
-          return 6;
-      }
     }
 }

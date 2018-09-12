@@ -4,14 +4,11 @@
 
 <app-language-header></app-language-header>
 
-<div class="languages">
-  <mat-grid-list [cols]="breakpoint" rowHeight="2:1" (window:resize)="onResize($event)">
-    <mat-grid-tile class="language">1</mat-grid-tile>
-    <mat-grid-tile class="language">2</mat-grid-tile>
-    <mat-grid-tile class="language">3</mat-grid-tile>
-    <mat-grid-tile class="language">4</mat-grid-tile>
-    <mat-grid-tile class="language">5</mat-grid-tile>
-    <mat-grid-tile class="language">6</mat-grid-tile>
-  </mat-grid-list>
+<div class="languages-container">
+      <app-language class="language"
+                    *ngFor="let language of languages"
+                    [language] = "language">
+
+      </app-language>
 </div>
 

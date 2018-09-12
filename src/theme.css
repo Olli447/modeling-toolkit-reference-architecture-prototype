@@ -4,10 +4,10 @@ Error: File to import not found or unreadable: ~@angular/material/theming.
 
 1: @import '~@angular/material/theming';
 2: @import 'app/frontend/language-selection/header/header.component-theme';
-3: 
-4: // Include non-theme styles for core.
-5: @include mat-core();
-6: 
+3: @import 'app/frontend/loading-screen/loading-screen.component-theme';
+4: 
+5: // Include non-theme styles for core.
+6: @include mat-core();
 
 Backtrace:
 theme.scss:1
@@ -53,4 +53,4 @@ C:/Program Files (x86)/Ruby25-x64/bin/scss:23:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: File to import not found or unreadable: ~@angular/material/theming.\A         on line 1 of theme.scss\A \A 1: @import '~@angular/material/theming';\A 2: @import 'app/frontend/language-selection/header/header.component-theme';\A 3: \A 4: // Include non-theme styles for core.\A 5: @include mat-core();\A 6: "; }
+  content: "Error: File to import not found or unreadable: ~@angular/material/theming.\A         on line 1 of theme.scss\A \A 1: @import '~@angular/material/theming';\A 2: @import 'app/frontend/language-selection/header/header.component-theme';\A 3: @import 'app/frontend/loading-screen/loading-screen.component-theme';\A 4: \A 5: // Include non-theme styles for core.\A 6: @include mat-core();"; }

@@ -8,14 +8,25 @@
 .elements,
 .settings {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   width: 200px; }
 
 .elements {
   padding-right: 10px; }
 
 .settings {
+  width: 60vw;
   padding-left: 10px; }
+
+app-elements-sidebar {
+  padding-left: 10px;
+  margin-top: 10px;
+  width: 100%; }
+
+app-settings-sidebar {
+  padding-right: 10px;
+  margin-top: 10px;
+  width: 100%; }
 
 /*# sourceMappingURL=modelling.component.css.map */

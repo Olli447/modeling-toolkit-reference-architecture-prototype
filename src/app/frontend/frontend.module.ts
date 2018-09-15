@@ -7,30 +7,37 @@ import { NoLanguageSelectedComponent } from './no-language-selected/no-language-
 import {RouterModule} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
+    MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,
     MatDialogModule,
-    MatDividerModule,
+    MatDividerModule, MatFormFieldModule,
     MatGridListModule,
-    MatIconModule,
+    MatIconModule, MatInputModule,
     MatMenuModule, MatProgressBarModule, MatSidenavModule, MatTooltipModule
 } from '@angular/material';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {LayoutModule} from '@angular/cdk/layout';
 import { HeaderComponent } from './language-selection/header/header.component';
 import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ToolbarComponent } from './modelling/toolbar/toolbar.component';
 import { ElementsSidebarComponent } from './modelling/elements-sidebar/elements-sidebar.component';
 import { SettingsSidebarComponent } from './modelling/settings-sidebar/settings-sidebar.component';
 import { ModellingAreaComponent } from './modelling/modelling-area/modelling-area.component';
 import {CanDeactivateGuard} from './modelling/canDeactivateGuard';
+import { ElementEntityComponent } from './modelling/elements-sidebar/element-entity/element-entity.component';
+import {ElementRelationComponent} from './modelling/elements-sidebar/element-relation/element-relation.component';
+import { SettingsDirective } from './modelling/settings-sidebar/settings.directive';
+import { ElementRelationSelectionComponent } from './modelling/elements-sidebar/element-relation-selection/element-relation-selection.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
     MatButtonModule,
     MatGridListModule,
     MatToolbarModule,
@@ -46,7 +53,9 @@ import {CanDeactivateGuard} from './modelling/canDeactivateGuard';
     MatIconModule,
     MatTooltipModule,
     MatSidenavModule,
-    LayoutModule
+    LayoutModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
   ],
   declarations: [
       LanguageSelectionComponent,
@@ -59,7 +68,11 @@ import {CanDeactivateGuard} from './modelling/canDeactivateGuard';
       ToolbarComponent,
       ElementsSidebarComponent,
       SettingsSidebarComponent,
-      ModellingAreaComponent
+      ModellingAreaComponent,
+      ElementEntityComponent,
+      ElementRelationComponent,
+      SettingsDirective,
+      ElementRelationSelectionComponent
   ],
   entryComponents: [LanguageLoadDialog],
   exports: [LoadingScreenComponent],

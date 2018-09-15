@@ -1,0 +1,215 @@
+<div class="form-container">
+<form (ngSubmit)="onSubmit()" #classForm="ngForm">
+  <div class="form-group">
+    <mat-form-field class="form-item">
+      <input [(ngModel)]="this.uml_class_instance.uml_class_keyword"
+             name="uml_class_keyword"
+             type="text"
+             class="form-control"
+             id="uml_class_keyword"
+             matInput
+             #name="ngModel"
+             placeholder="Keyword">
+    </mat-form-field>
+
+    <mat-form-field class="form-item">
+      <input [(ngModel)]="this.uml_class_instance.uml_class_name"
+             name="uml_class_name"
+             type="text"
+             class="form-control"
+             id="uml_class_name"
+             matInput
+             required
+             #name="ngModel"
+             placeholder="Name">
+      <mat-error *ngIf="name.valid || name.pristine">Name is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-item">
+      <input [(ngModel)]="this.uml_class_instance.uml_class_property"
+             name="uml_class_property"
+             type="text"
+             class="form-control"
+             id="uml_class_property"
+             matInput
+             #name="ngModel"
+             placeholder="Property">
+    </mat-form-field>
+  </div>
+
+  <div class="form-group attribute-container">
+    <h3>Attributes</h3>
+    <div class="attribute-row" *ngFor='let attribute of uml_class_instance.uml_class_attributes;let index = index;let last = last;trackBy: trackByIndex;'>
+      <mat-form-field class="form-item visibility">
+        <mat-select [(ngModel)]="this.uml_class_instance.uml_class_attributes[index].uml_class_attributes_visibility"
+                    name="uml_class_attributes_visibility_{{index}}"
+                    class="form-control"
+                    id="uml_class_attributes_visibility_{{index}}"
+                    matInput
+                    #name="ngModel"
+                    placeholder="Visibility">
+          <mat-option value="+">Public</mat-option>
+          <mat-option value="#">Protected</mat-option>
+          <mat-option value="−">Private</mat-option>
+          <mat-option value="~">Package</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-item name">
+        <input [(ngModel)]="this.uml_class_instance.uml_class_attributes[index].uml_class_attributes_name"
+               name="uml_class_attributes_name_{{index}}"
+               type="text"
+               class="form-control"
+               id="uml_class_attributes_name_{{index}}"
+               matInput
+               #name="ngModel"
+               placeholder="Name">
+      </mat-form-field>
+
+      <mat-form-field class="form-item type">
+        <input [(ngModel)]="this.uml_class_instance.uml_class_attributes[index].uml_class_attributes_type"
+               name="uml_class_attributes_type_{{index}}"
+               type="text"
+               class="form-control"
+               id="uml_class_attributes_type_{{index}}"
+               matInput
+               #name="ngModel"
+               placeholder="Type">
+      </mat-form-field>
+
+      <mat-form-field class="form-item value">
+        <input [(ngModel)]="this.uml_class_instance.uml_class_attributes[index].uml_class_attributes_value"
+               name="uml_class_attributes_value_{{index}}"
+               type="text"
+               class="form-control"
+               id="uml_class_attributes_value_{{index}}"
+               matInput
+               #name="ngModel"
+               placeholder="Value">
+      </mat-form-field>
+
+      <div class="form-item">
+        <mat-checkbox [(ngModel)]="this.uml_class_instance.uml_class_attributes[index].uml_class_attributes_isClassScope"
+                      name="uml_class_attributes_isClassScope_{{index}}"
+                      id="uml_class_attributes_isClassScope_{{index}}"
+                      class="form-control"
+                      #name="ngModel">
+          isClassScope?
+        </mat-checkbox>
+        <button *ngIf="!last" mat-icon-button
+                matTooltip="Delete row"
+                (click)="deleteAttribute(index)">
+          <mat-icon aria-label="Button to delete a row">delete</mat-icon>
+        </button>
+        <button *ngIf="last" mat-icon-button
+                matTooltip="Add row"
+                (click)="addAttribute()">
+          <mat-icon aria-label="Button to add a row">add</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <h3>Methods</h3>
+  <div class="form-group operation-container">
+    <div class="operation-row"
+         *ngFor='let operation of uml_class_instance.uml_class_operations;let index = index;let last = last;trackBy: trackByIndex;'>
+      <mat-form-field class="form-item visibility">
+        <mat-select [(ngModel)]="this.uml_class_instance.uml_class_operations[index].uml_class_operations_visibility"
+                    name="uml_class_operations_visibility_{{index}}"
+                    class="form-control"
+                    id="uml_class_operations_visibility_{{index}}"
+                    matInput
+                    #name="ngModel"
+                    placeholder="Visibility">
+          <mat-option value="+">Public</mat-option>
+          <mat-option value="#">Protected</mat-option>
+          <mat-option value="−">Private</mat-option>
+          <mat-option value="~">Package</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-item name">
+        <input [(ngModel)]="this.uml_class_instance.uml_class_operations[index].uml_class_operations_name"
+               name="uml_class_operations_name_{{index}}"
+               type="text"
+               class="form-control"
+               id="uml_class_operations_name_{{index}}"
+               matInput
+               #name="ngModel"
+               placeholder="Name">
+      </mat-form-field>
+
+      <mat-form-field class="form-item returntype">
+        <input [(ngModel)]="this.uml_class_instance.uml_class_operations[index].uml_class_operations_returntype"
+               name="uml_class_operations_returntype_{{index}}"
+               type="text"
+               class="form-control"
+               id="uml_class_operations_returntype_{{index}}"
+               matInput
+               #name="ngModel"
+               placeholder="returntype">
+      </mat-form-field>
+
+      <mat-checkbox [(ngModel)]="this.uml_class_instance.uml_class_operations[index].uml_class_operations_isClassScope"
+                    name="uml_class_operations_isClassScope_{{index}}"
+                    id="uml_class_operations_isClassScope_{{index}}"
+                    class="form-control"
+                    #name="ngModel">
+        isClassScope?
+      </mat-checkbox>
+
+      <div class="parameter-container">
+        <div *ngFor='let parameter of this.uml_class_instance.uml_class_operations[index].uml_class_operations_parameters;let index2 = index;let last2 = last;trackBy: trackByIndex;'
+             class="parameter-row">
+          <mat-form-field class="form-item name">
+            <input [(ngModel)]="this.uml_class_instance.uml_class_operations[index].uml_class_operations_parameters[index2].uml_class_operations_parameters_name"
+                   name="uml_class_operations_parameters_name_{{index2}}"
+                   type="text"
+                   class="form-control"
+                   id="uml_class_operations_parameters_name_{{index2}}"
+                   matInput
+                   #name="ngModel"
+                   placeholder="Parametername">
+          </mat-form-field>
+
+          <mat-form-field class="form-item type">
+            <input [(ngModel)]="this.uml_class_instance.uml_class_operations[index].uml_class_operations_parameters[index2].uml_class_operations_parameters_type"
+                   name="uml_class_operations_parameters_type_{{index2}}"
+                   type="text"
+                   class="form-control"
+                   id="uml_class_operations_parameters_type_{{index2}}"
+                   matInput
+                   #name="ngModel"
+                   placeholder="Parametertype">
+          </mat-form-field>
+          <button *ngIf="!last2" mat-icon-button
+                  matTooltip="Delete row"
+                  (click)="deleteOperationParameter(index, index2)">
+            <mat-icon aria-label="Button to delete a row">delete</mat-icon>
+          </button>
+          <button *ngIf="last2" mat-icon-button
+                  matTooltip="Add row"
+                  (click)="addOperationParameter(index)">
+            <mat-icon aria-label="Button to add a row">add</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <button *ngIf="!last" mat-icon-button
+              matTooltip="Delete row"
+              (click)="deleteOperation(index)">
+        <mat-icon aria-label="Button to delete a row">delete</mat-icon>
+      </button>
+      <button *ngIf="last" mat-icon-button
+              matTooltip="Add row"
+              (click)="addOperation()">
+        <mat-icon aria-label="Button to add a row">add</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <button #submitClassForm mat-raised-button  type="submit" [disabled]="!classForm.form.valid" initialFocus>Submit</button>
+</form>
+
+</div>

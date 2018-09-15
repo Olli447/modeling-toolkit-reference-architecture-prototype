@@ -1,0 +1,10 @@
+.element {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px; }
+
+.element > img {
+  width: 100%; }
+
+/*# sourceMappingURL=element-entity.component-entity.cssity.css.map */

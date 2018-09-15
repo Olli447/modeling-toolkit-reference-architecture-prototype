@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,oBAAqB;EACnB,QAAQ,EAAE,KAAK;EACf,GAAG,EAAE,IAAI;EACT,IAAI,EAAE,IAAI",
+"sources": ["element-relation-selection.component.scss"],
+"names": [],
+"file": "element-relation-selection.component.css"
+}

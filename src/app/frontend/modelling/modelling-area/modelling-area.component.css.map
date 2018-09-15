@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "",
-"sources": [],
+"mappings": "AAAA,WAAY;EACV,OAAO,EAAE,YAAY;EACrB,cAAc,EAAE,GAAG;EACnB,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,KAAK",
+"sources": ["modelling-area.component.scss"],
 "names": [],
 "file": "modelling-area.component.css"
 }

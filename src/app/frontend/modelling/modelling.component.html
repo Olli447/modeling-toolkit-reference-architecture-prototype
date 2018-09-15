@@ -5,8 +5,8 @@
         <mat-sidenav class="elements" opened mode="side">
             <app-elements-sidebar></app-elements-sidebar>
         </mat-sidenav>
-        <mat-sidenav class="settings" opened mode="side" position="end">
-            <app-settings-sidebar></app-settings-sidebar>
+        <mat-sidenav #settings  class="settings" mode="over" position="end">
+            <app-settings-sidebar [sidebar]="settingsSidebar"></app-settings-sidebar>
         </mat-sidenav>
         <mat-sidenav-content>
             <app-modelling-area></app-modelling-area>

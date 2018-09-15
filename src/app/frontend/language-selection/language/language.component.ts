@@ -3,6 +3,8 @@ import {Language} from '../../../classes/language';
 import {LoadingScreenService} from '../../../service/loading-screen.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {LoadingStatus, LoadingStatusEvent} from '../../../classes/loadingStatusEvent';
+import {ModellingManagerService} from '../../../core/modelling-manager.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-language',
@@ -12,7 +14,13 @@ import {LoadingStatus, LoadingStatusEvent} from '../../../classes/loadingStatusE
 export class LanguageComponent implements OnInit {
   @Input() language: Language;
 
-  constructor(public dialog: MatDialog, public loadingScreenService: LoadingScreenService) {  }
+  constructor
+  (
+      public dialog: MatDialog,
+      public loadingScreenService: LoadingScreenService,
+      public modellingManager: ModellingManagerService,
+      public router: Router
+  ) {  }
 
   ngOnInit() {
   }
@@ -26,26 +34,27 @@ export class LanguageComponent implements OnInit {
                 this.loadingScreenService.updateLoadingScreenStatus(new LoadingStatusEvent(LoadingStatus.PENDING, null, 'load modell'));
 
                 const file: File = result;
-                console.log(result);
-                let fileContent: string;
+                // console.log(result);
+                // let fileContent: string;
                 const reader = new FileReader();
                 reader.readAsText(file);
                 reader.onload = () => {
-                    fileContent = reader.result;
-                    console.log(fileContent);
-                    this.loadingScreenService.updateLoadingScreenStatus(new LoadingStatusEvent(LoadingStatus.DONE, null, null));
+                    // fileContent = reader.result;
+                    this.modellingManager.rawModelData = reader.result;
+                    // console.log(fileContent);
+                    setTimeout(() => {this.router.navigate(['/modelling', this.language.id]); }, 1000);
                 };
             }
         });
     }
 
     onClickNew() {
-      this.loadingScreenService.updateLoadingScreenStatus(new LoadingStatusEvent(LoadingStatus.PENDING, null, 'Test 1'));
+      this.loadingScreenService.updateLoadingScreenStatus(new LoadingStatusEvent(LoadingStatus.PENDING, null, 'Load modelling Language'));
 
       setTimeout(() => (
-          this.loadingScreenService.updateLoadingScreenStatus(new LoadingStatusEvent(LoadingStatus.WORKING, null, 'Test 2'))
-      ), 1000);
-      setTimeout(() => (this.loadingScreenService.updateLoadingScreenStatus(new LoadingStatusEvent(LoadingStatus.DONE, null, null))), 2000);
+          this.loadingScreenService.updateLoadingScreenStatus(new LoadingStatusEvent(LoadingStatus.WORKING, null, 'Create new Model'))
+      ), 500);
+      setTimeout(() => {this.router.navigate(['/modelling', this.language.id]); }, 1000);
     }
 }
 

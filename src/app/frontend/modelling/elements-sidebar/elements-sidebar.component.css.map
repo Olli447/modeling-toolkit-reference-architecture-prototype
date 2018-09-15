@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "",
-"sources": [],
+"mappings": "AAAA,iBAAkB;EAChB,UAAU,EAAE,IAAI;EAChB,aAAa,EAAE,IAAI;;AAGrB,EAAG;EACD,aAAa,EAAE,cAAc;;AAG/B,UAAW;EACT,SAAS,EAAE,GAAG;EACd,WAAW,EAAE,GAAG",
+"sources": ["elements-sidebar.component.scss"],
 "names": [],
 "file": "elements-sidebar.component.css"
 }

@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "",
-"sources": [],
+"mappings": "AAAA,aAAc;EACZ,KAAK,EAAE,KAAK",
+"sources": ["settings-sidebar.component.scss"],
 "names": [],
 "file": "settings-sidebar.component.css"
 }

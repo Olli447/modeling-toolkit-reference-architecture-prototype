@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,QAAS;EACP,KAAK,EAAE,GAAG;EACV,WAAW,EAAE,IAAI;EACjB,YAAY,EAAE,IAAI;EAClB,aAAa,EAAE,IAAI;;AAGrB,cAAe;EACb,KAAK,EAAE,IAAI;;AAGb,UAAW;EACT,MAAM,EAAE,OAAO",
+"sources": ["element-relation.component.scss"],
+"names": [],
+"file": "element-relation.component.css"
+}

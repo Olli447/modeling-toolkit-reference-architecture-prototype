@@ -1,0 +1,91 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container > * {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.form-group > * {
+  flex-grow: 1;
+  flex-basis: auto;
+}
+
+.form-item {
+  margin: 5px;
+}
+
+.attribute-container {
+  flex-direction: column;
+}
+.attribute-row {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+
+  border: 1px solid grey;
+
+}
+.attribute-row > * {
+  flex-grow: 1;
+  flex-basis: auto;
+}
+
+.visibility {
+  width: 80px;
+}
+.name {
+  width: 120px;
+}
+.type {
+  width: 60px;
+}
+.returntype {
+  width: 90px;
+}
+
+.value {
+  width: 60px;
+}
+
+.operation-container {
+  flex-direction: column;;
+
+  border: 1px solid grey;
+}
+.operation-row {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+
+  border: 1px solid grey;
+}
+
+.operation-row > * {
+}
+
+.parameter-container {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  border: 1px solid blue;
+}
+.parameter-row {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.parameter-row > * {
+  flex-grow: 1;
+  flex-basis: auto;
+}

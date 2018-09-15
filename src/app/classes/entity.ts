@@ -1,13 +1,16 @@
-export interface Entity {
+import {AbstractElement} from './abstractElement';
+import {Variable} from './variable';
+
+export interface Entity extends AbstractElement {
     id: string;
-    name: string;
+    // name: string;
     category: string;
 
     variables: Variable[];
+    // imagePath: string;
 }
 
-export class Variable {
+export interface EntityInstance {
+    id: string;
     name: string;
-    type: string;
-    regex_constraint: string;
 }

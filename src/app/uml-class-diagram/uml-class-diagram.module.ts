@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {ModellingManagerService} from '../core/modelling-manager.service';
 import {Language} from '../classes/language';
 import {UmlClass} from './entities/class';
-import { UmlClassSettingsComponent } from './uml-class-settings/uml-class-settings.component';
+import { UmlClassSettingsComponent } from './settingComponents/uml-class-settings/uml-class-settings.component';
 import {
     MatButtonModule,
     MatCardModule, MatCheckboxModule, MatDialogModule, MatDividerModule,
@@ -16,14 +16,17 @@ import {
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LayoutModule} from '@angular/cdk/layout';
-import { UmlAssociationSettingsComponent } from './uml-association-settings/uml-association-settings.component';
+import { UmlAssociationSettingsComponent } from './settingComponents/uml-association-settings/uml-association-settings.component';
 import {UmlAssociation} from './relations/umlAssociation';
 import {UmlGeneralization} from './relations/umlGeneralization';
 import {UmlHasAttached} from './relations/umlHasAttached';
-import { UmlIsCompositionOfSettingsComponent } from './uml-is-composition-of-settings/uml-is-composition-of-settings.component';
+import { UmlIsCompositionOfSettingsComponent } from './settingComponents/uml-is-composition-of-settings/uml-is-composition-of-settings.component';
 import {UmlIsCompositionOf} from './relations/umlIsCompositionOf';
-import { UmlIsAggregationOfSettingsComponent } from './uml-is-aggregation-of-settings/uml-is-aggregation-of-settings.component';
+import { UmlIsAggregationOfSettingsComponent } from './settingComponents/uml-is-aggregation-of-settings/uml-is-aggregation-of-settings.component';
 import {UmlIsAggregationOf} from './relations/umlIsAggregationOf';
+import {CheckHandlerArray} from '../classes/abstractCheckHandler';
+import {BasicCheckHandler} from './checkHandlers/basicCheckHandler';
+import {QuantityCheckHandler} from './checkHandlers/quantityCheckHandler';
 
 @NgModule({
   imports: [
@@ -73,6 +76,20 @@ export class UmlClassDiagramModule {
       'uml_isCompositionOf': UmlIsCompositionOfSettingsComponent,
       'uml_isAggregationOf': UmlIsAggregationOfSettingsComponent
     };
+    const checkHandlers: CheckHandlerArray = {
+        'uml_isCompositionOf': [
+            new BasicCheckHandler(),
+            new QuantityCheckHandler()
+        ],
+        'uml_isAggregationOf': [
+            new BasicCheckHandler(),
+            new QuantityCheckHandler()
+        ],
+        'uml_generalization': [
+            new BasicCheckHandler(),
+            new QuantityCheckHandler()
+        ],
+    };
 
     this.language = new Language(
         'uml-classdiagram',
@@ -80,6 +97,7 @@ export class UmlClassDiagramModule {
         entities,
         relations,
         settingsComponents,
+        checkHandlers,
         'UML',
         'This is the Unified Modelling Language Class Diagram'
     );

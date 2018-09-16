@@ -4,7 +4,6 @@ import {Variable} from './variable';
 export interface Entity extends AbstractElement {
     id: string;
     // name: string;
-    category: string;
 
     variables: Variable[];
     // imagePath: string;

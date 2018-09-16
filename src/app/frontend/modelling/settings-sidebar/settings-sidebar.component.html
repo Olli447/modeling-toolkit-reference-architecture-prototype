@@ -1,14 +1,14 @@
 <div *ngIf="currentView" class="smallToolbar">
-  <button mat-icon-button
-          matTooltip="Delete Element"
-          (click)="deleteButtonPressed()">
-    <mat-icon aria-label="Button to delete a node">delete</mat-icon>
-  </button>
+    <button mat-icon-button
+            matTooltip="Delete Element"
+            (click)="deleteButtonPressed()">
+        <mat-icon aria-label="Button to delete a node">delete</mat-icon>
+    </button>
 </div>
 
 <h2>Settings</h2>
 <div class="nothingHere" *ngIf="!currentView">
-  <h4>Please select a entity or relationship</h4>
+    <h4>Please select a entity or relationship</h4>
 </div>
-<ng-template appSettings></ng-template>
 
+<ng-template appSettings></ng-template>

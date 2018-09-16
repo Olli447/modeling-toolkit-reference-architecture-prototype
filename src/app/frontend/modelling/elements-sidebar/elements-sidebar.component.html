@@ -5,9 +5,12 @@
 <mat-divider class="elements-divider"></mat-divider>
 
 <h1>Relations</h1>
-<p class="smalltext"> Due to technical restrictions, relations can't be created with drag and drop. Please click on a relation to create one</p>
+<p class="smalltext"> Due to technical restrictions, relations can't be created with drag and drop. Please click on a
+    relation to create one</p>
 
-<app-element-relation *ngFor="let relation of relations" [element]='relation' (elementSelected)="relationClicked(relation)" ></app-element-relation>
+<app-element-relation *ngFor="let relation of relations" [element]='relation'
+                      (elementSelected)="relationClicked(relation)"></app-element-relation>
 
-<app-element-relation-selection *ngIf="selectedRelation" [element]="selectedRelation" (elementSelctionCompleted)="relationPopUpDismissed()"></app-element-relation-selection>
+<app-element-relation-selection *ngIf="selectedRelation" [element]="selectedRelation"
+                                (elementSelctionCompleted)="relationPopUpDismissed()"></app-element-relation-selection>
 

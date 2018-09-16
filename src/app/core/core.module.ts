@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import {ModellingManagerService} from './modelling-manager.service';
 import {ModellingToolkitService} from './modelling-toolkit.service';
 import {ContentCheckManagerService} from './content-check-manager.service';
-import {ExceptionManagerService} from './exception-manager.service';
 
 @NgModule({
   imports: [
@@ -13,8 +12,7 @@ import {ExceptionManagerService} from './exception-manager.service';
   providers: [
       ModellingManagerService,
       ModellingToolkitService,
-      ContentCheckManagerService,
-      ExceptionManagerService
+      ContentCheckManagerService
   ]
 })
 export class CoreModule { }

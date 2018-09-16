@@ -8,15 +8,21 @@ export interface Relation extends AbstractElement {
     id: string;
     desciption: string;
 
-    cardinalities: [{fromEntity: Entity, toEntity: Entity, cardinality: SimpleCardinality}];
+    cardinalities: [CardinalityElement];
     variables: Variable[];
 
     // imagePath: string;
 }
 
 export interface RelationInstance {
-    fromID: string;
-    toID: string;
-    name: string;
+    from: string;
+    to: string;
+    key: string;
+}
+
+export interface CardinalityElement {
+    fromEntity: Entity;
+    toEntity: Entity;
+    cardinality: SimpleCardinality;
 }
 

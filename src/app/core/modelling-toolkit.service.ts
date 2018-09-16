@@ -8,6 +8,7 @@ import {Relation, RelationInstance} from '../classes/relation';
 import {tryCatch} from 'rxjs/internal-compatibility';
 import {ModellingAreaComponent} from '../frontend/modelling/modelling-area/modelling-area.component';
 import {SettingsSidebarComponent} from '../frontend/modelling/settings-sidebar/settings-sidebar.component';
+import {ContentCheckManagerService} from './content-check-manager.service';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +42,8 @@ export class ModellingToolkitService {
   nodeDeleted$ = this.nodeDeletedSource.asObservable();
 
   constructor(
-      private modellingManager: ModellingManagerService
+      private modellingManager: ModellingManagerService,
+      private contentCheckManager: ContentCheckManagerService
   ) { }
 
     getEntityByName(name: string): Entity {
@@ -71,7 +73,7 @@ export class ModellingToolkitService {
     }
     getRelationInstanceByID(fromID: string, toID: string) {
         for (let i = 0; i < this.relations.length; i++) {
-            if (this.relations[i].fromID === fromID && this.relations[i].toID === toID) {
+            if (this.relations[i].from === fromID && this.relations[i].to === toID) {
               return this.relations[i];
             }
         }
@@ -80,7 +82,10 @@ export class ModellingToolkitService {
 
     setLanguage(languageID: string) {
         this.currentLanguageID = languageID;
-        this.currentLanguageSource.next(this.modellingManager.getLanguageByID(languageID));
+        const language = this.modellingManager.getLanguageByID(languageID);
+        this.currentLanguageSource.next(language);
+        this.contentCheckManager.checkHandlerArray = language.checkHandlers;
+        this.contentCheckManager.diagram = this.modellingAreaComponent.diagram;
     }
 
     nodeSelected(node: any) {

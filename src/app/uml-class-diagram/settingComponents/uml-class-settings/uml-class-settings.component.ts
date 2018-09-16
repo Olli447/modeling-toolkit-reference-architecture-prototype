@@ -1,12 +1,12 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {SettingComponent, SettingItem} from '../../classes/settingItem';
-import {UmlClassInstance} from '../entities/class';
-import {ModellingToolkitService} from '../../core/modelling-toolkit.service';
-import {SettingsSidebarComponent} from '../../frontend/modelling/settings-sidebar/settings-sidebar.component';
+import {SettingComponent, SettingItem} from '../../../classes/settingItem';
+import {UmlClassInstance} from '../../entities/class';
+import {ModellingToolkitService} from '../../../core/modelling-toolkit.service';
+import {SettingsSidebarComponent} from '../../../frontend/modelling/settings-sidebar/settings-sidebar.component';
 import {MatButton} from '@angular/material';
-import {UmlClassAttributes} from '../classes/property';
-import {UmlClassOperations, UmlClassOperationsParameters} from '../classes/operation';
-import {HelperFunctions} from '../../classes/helperFunctions';
+import {UmlClassAttributes} from '../../classes/property';
+import {UmlClassOperations, UmlClassOperationsParameters} from '../../classes/operation';
+import {HelperFunctions} from '../../../classes/helperFunctions';
 
 @Component({
   selector: 'app-uml-class-settings',
@@ -69,6 +69,7 @@ export class UmlClassSettingsComponent implements OnInit, SettingComponent, Afte
     const diagram = this.modellingToolkit.modellingAreaComponent.diagram;
     diagram.startTransaction('update node:' + this.uml_class_instance.id);
       diagram.model.setDataProperty(tempNodedata, 'uml_class_keyword', this.uml_class_instance.uml_class_keyword);
+      diagram.model.setDataProperty(tempNodedata, 'name', this.uml_class_instance.uml_class_name);
       diagram.model.setDataProperty(tempNodedata, 'uml_class_name', this.uml_class_instance.uml_class_name);
       diagram.model.setDataProperty(tempNodedata, 'uml_class_property', this.uml_class_instance.uml_class_property);
       diagram.model.setDataProperty(tempNodedata, 'uml_class_attributes', this.uml_class_instance.uml_class_attributes);

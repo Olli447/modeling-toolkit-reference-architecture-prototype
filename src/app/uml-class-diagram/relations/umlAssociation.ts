@@ -1,4 +1,4 @@
-import {Relation} from '../../classes/relation';
+import {Relation, RelationInstance} from '../../classes/relation';
 import {Entity} from '../../classes/entity';
 import {SimpleCardinality} from '../../classes/cardinality';
 import {Variable} from '../../classes/variable';

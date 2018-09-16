@@ -7,7 +7,6 @@ import {UmlClassAttributes} from '../classes/property';
 export class UmlClass implements Entity {
     id: string;
     name: string;
-    category: string;
     variables: Variable[];
 
     imagePath: string;

@@ -4,11 +4,36 @@ import {ModellingToolkitService} from '../../../../core/modelling-toolkit.servic
 import * as go from 'gojs';
 import {tokenReference} from '@angular/compiler';
 import {HelperFunctions} from '../../../../classes/helperFunctions';
+import {ContentCheckManagerService} from '../../../../core/content-check-manager.service';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-element-relation-selection',
   templateUrl: './element-relation-selection.component.html',
-  styleUrls: ['./element-relation-selection.component.scss']
+  styleUrls: ['./element-relation-selection.component.scss'],
+    animations: [
+        trigger('animationOption2', [
+            transition(':enter', [
+                style({
+                    opacity: '0',
+                    overflow: 'hidden',
+                    height: '0px'
+                }),
+                animate(300)
+            ]),
+            transition(':leave', [
+                animate(300, style({
+                    opacity: '0',
+                    overflow: 'hidden',
+                    height: '0px'
+                }))
+            ]),
+            state('*', style({
+                overflow: 'hidden',
+                height: '*'
+            })),
+        ])
+    ]
 })
 export class ElementRelationSelectionComponent implements OnInit {
   @Input()
@@ -23,10 +48,14 @@ export class ElementRelationSelectionComponent implements OnInit {
   fromName: string;
   toName: string;
 
+  isValid = false;
+  errorMsg: string;
+
 
 
   constructor(
-      private modellingToolkit: ModellingToolkitService
+      private modellingToolkit: ModellingToolkitService,
+      private contentCheckManager: ContentCheckManagerService
   ) { }
 
   ngOnInit() {
@@ -51,6 +80,13 @@ export class ElementRelationSelectionComponent implements OnInit {
             this.data.toEntity = nodeData.key;
             this.toName = nodeData.uml_class_name;
           }
+
+          if (this.data.fromEntity && this.data.toEntity)  {
+              const returnValue = this.contentCheckManager.doLinkCheck(this.data, this.element);
+              this.isValid = !returnValue.isFailed;
+              this.errorMsg = returnValue.errorMsg;
+          }
+
           this.modellingToolkit.modellingAreaComponent.diagram.clearSelection();
     });
   }
@@ -67,8 +103,8 @@ export class ElementRelationSelectionComponent implements OnInit {
     this.elementSelctionCompleted.emit(this.data);
   }
 
-  onSingleClick(e: go.DiagramEvent) {
-
+  onDeleteSelection() {
+      this.errorMsg = null;
   }
 
 }

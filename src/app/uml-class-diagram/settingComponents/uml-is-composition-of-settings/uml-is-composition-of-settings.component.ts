@@ -1,25 +1,25 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {SettingsSidebarComponent} from '../../frontend/modelling/settings-sidebar/settings-sidebar.component';
-import {UmlIsAggregationOfInstance} from '../relations/umlIsAggregationOf';
+import {SettingsSidebarComponent} from '../../../frontend/modelling/settings-sidebar/settings-sidebar.component';
 import {MatButton} from '@angular/material';
-import {ModellingToolkitService} from '../../core/modelling-toolkit.service';
-import {HelperFunctions} from '../../classes/helperFunctions';
-import {SimpleCardinality} from '../../classes/cardinality';
+import {ModellingToolkitService} from '../../../core/modelling-toolkit.service';
+import {HelperFunctions} from '../../../classes/helperFunctions';
+import {SimpleCardinality} from '../../../classes/cardinality';
 import * as go from 'gojs';
+import {UmlIsCompositionOfInstance} from '../../relations/umlIsCompositionOf';
 
 @Component({
-  selector: 'app-uml-is-aggregation-of-settings',
-  templateUrl: './uml-is-aggregation-of-settings.component.html',
-  styleUrls: ['./uml-is-aggregation-of-settings.component.scss']
+  selector: 'app-uml-is-composition-of-settings',
+  templateUrl: './uml-is-composition-of-settings.component.html',
+  styleUrls: ['./uml-is-composition-of-settings.component.scss']
 })
-export class UmlIsAggregationOfSettingsComponent implements OnInit {
+export class UmlIsCompositionOfSettingsComponent implements OnInit {
     data: any;
     parentComponent: SettingsSidebarComponent = this.modellingToolkit.settingSidebarComponent;
 
     nodeData: any;
-    uml_isAggregationOf_instance: UmlIsAggregationOfInstance;
+    uml_isCompositionOf_instance: UmlIsCompositionOfInstance;
 
-    @ViewChild('submitAggregationForm') button: MatButton;
+    @ViewChild('submitCompositionForm') button: MatButton;
     constructor(
         private modellingToolkit: ModellingToolkitService
     ) { }
@@ -27,15 +27,15 @@ export class UmlIsAggregationOfSettingsComponent implements OnInit {
     ngOnInit() {
         const helper = new HelperFunctions();
         this.nodeData = helper.deepCopy(this.data);
-        this.uml_isAggregationOf_instance = new UmlIsAggregationOfInstance(
-            this.nodeData.uml_isAggregationOf_name,
-            this.nodeData.uml_isAggregationOf_cardinality
+        this.uml_isCompositionOf_instance = new UmlIsCompositionOfInstance(
+            this.nodeData.uml_isCompositionOf_name,
+            this.nodeData.uml_isCompositionOf_cardinality
         );
-        if (!this.nodeData.uml_isAggregationOf_name) {
-            this.uml_isAggregationOf_instance.uml_isAggregationOf_name = '';
+        if (!this.nodeData.uml_isCompositionOf_name) {
+            this.uml_isCompositionOf_instance.uml_isCompositionOf_name = '';
         }
-        if (!this.nodeData.uml_isAggregationOf_cardinality) {
-            this.uml_isAggregationOf_instance.uml_isAggregationOf_cardinality = new SimpleCardinality(
+        if (!this.nodeData.uml_isCompositionOf_cardinality) {
+            this.uml_isCompositionOf_instance.uml_isCompositionOf_cardinality = new SimpleCardinality(
                 null,
                 {
                     min: '',
@@ -50,8 +50,8 @@ export class UmlIsAggregationOfSettingsComponent implements OnInit {
         const link: go.Link = diagram.findLinksByExample(this.nodeData).first();
         const linkData = link.data;
         diagram.startTransaction('update link:' + this.nodeData.key);
-        diagram.model.setDataProperty(linkData, 'uml_isAggregationOf_name', this.uml_isAggregationOf_instance.uml_isAggregationOf_name);
-        diagram.model.setDataProperty(linkData, 'uml_isAggregationOf_cardinality', this.uml_isAggregationOf_instance.uml_isAggregationOf_cardinality);
+        diagram.model.setDataProperty(linkData, 'uml_isCompositionOf_name', this.uml_isCompositionOf_instance.uml_isCompositionOf_name);
+        diagram.model.setDataProperty(linkData, 'uml_isCompositionOf_cardinality', this.uml_isCompositionOf_instance.uml_isCompositionOf_cardinality);
         diagram.commitTransaction('update link:' + this.nodeData.key);
         this.parentComponent.close();
     }
@@ -66,3 +66,4 @@ export class UmlIsAggregationOfSettingsComponent implements OnInit {
     }
 
 }
+

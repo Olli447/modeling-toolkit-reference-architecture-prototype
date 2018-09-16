@@ -1,28 +1,32 @@
 <div class="selection-container">
-  <mat-card class="example-card">
+  <mat-card class="">
     <mat-card-header>
       <mat-card-title>Creating: {{element.name}}</mat-card-title>
       <mat-card-subtitle>Select two entities by clicking on them</mat-card-subtitle>
     </mat-card-header>
 
-    <mat-card-content>
-      <mat-form-field class="">
+    <mat-card-content class="content-container">
+      <mat-form-field class="form-item">
         <input matInput placeholder="FromEntity" type="text" readonly [ngModel]="fromName">
-        <button mat-button *ngIf="fromName" matSuffix mat-icon-button aria-label="Clear" (click)="fromName = null; data.fromEntity = null">
+        <button mat-button *ngIf="fromName" matSuffix mat-icon-button aria-label="Clear" (click)="fromName = null; data.fromEntity = null; onDeleteSelection()">
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
-      <mat-form-field class="">
+      <mat-form-field class="form-item">
         <input matInput placeholder="ToEntity" type="text" readonly [ngModel]="toName">
-        <button mat-button *ngIf="toName" matSuffix mat-icon-button aria-label="Clear" (click)="toName = null; data.toEntity = null">
+        <button mat-button *ngIf="toName" matSuffix mat-icon-button aria-label="Clear" (click)="toName = null; data.toEntity = null; onDeleteSelection()">
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
 
+      <div *ngIf="errorMsg" [@animationOption2]="errorMsg? 'open': 'close'" class="errorMessage">
+        <p>{{errorMsg}}</p>
+      </div>
+
     </mat-card-content>
     <mat-card-actions>
       <button mat-button (click)="abort()">Abort</button>
-      <button mat-button (click)="submit()">Submit</button>
+      <button mat-button [disabled]="!isValid" (click)="submit()">Submit</button>
     </mat-card-actions>
   </mat-card>
 </div>

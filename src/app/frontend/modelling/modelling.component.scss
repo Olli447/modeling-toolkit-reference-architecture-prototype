@@ -1,4 +1,4 @@
-.example-container {
+.main-container {
   position: absolute;
   top: 60px;
   bottom: 0;
@@ -12,6 +12,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   width: 200px;
+  overflow: auto
 }
 .elements {
   padding-right: 10px

@@ -1,0 +1,44 @@
+<div class="form-container">
+  <form (ngSubmit)="onSubmit()" #aggregationForm="ngForm">
+    <div class="form-group">
+
+      <mat-form-field class="form-item">
+        <input [(ngModel)]="uml_isAggregationOf_instance.uml_isAggregationOf_name"
+               name="uml_isAggregationOf_name"
+               type="text"
+               class="form-control"
+               id="uml_isAggregationOf_name"
+               matInput
+               #name="ngModel"
+               placeholder="Name">
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <h4>To Cardinality</h4>
+      <mat-form-field class="form-item">
+        <input [(ngModel)]="uml_isAggregationOf_instance.uml_isAggregationOf_cardinality.to.min"
+               name="uml_isAggregationOf_cardinality.to.min"
+               type="text"
+               class="form-control"
+               id="uml_isAggregationOf_cardinality.to.min"
+               matInput
+               #name="ngModel"
+               placeholder="min">
+      </mat-form-field>
+
+      <mat-form-field class="form-item">
+        <input [(ngModel)]="uml_isAggregationOf_instance.uml_isAggregationOf_cardinality.to.max"
+               name="uml_isAggregationOf_cardinality.to.max"
+               type="text"
+               class="form-control"
+               id="uml_isAggregationOf_cardinality.to.max"
+               matInput
+               #name="ngModel"
+               placeholder="max">
+      </mat-form-field>
+    </div>
+
+    <button #submitAggregationForm mat-raised-button  type="submit" [disabled]="!aggregationForm.form.valid" initialFocus>Submit</button>
+  </form>
+</div>

@@ -62,7 +62,7 @@ export class UmlClass implements Entity {
                     fromSpot: go.Spot.AllSides,
                     toSpot: go.Spot.AllSides
                 },
-                new go.Binding('location'),
+                new go.Binding('location', 'location').makeTwoWay(),
                 this.$(go.Shape, { fill: 'lightyellow' }),
                 this.$(go.Panel, 'Table',
                     { defaultRowSeparatorStroke: 'black' },
@@ -124,10 +124,12 @@ export class UmlClass implements Entity {
                                     this.$(go.TextBlock, '()',
                                         // this does not permit adding/editing/removing of parameters via inplace edits
                                         new go.Binding('text', 'uml_class_operations_parameters', function(parr) {
-                                            console.log(parr);
                                             let s = '(';
                                             for (let i = 0; i < parr.length; i++) {
                                                 const param = parr[i];
+                                                if (!param.uml_class_operations_parameters_name || !param.uml_class_operations_parameters_type) {
+                                                    return;
+                                                }
                                                 if (i > 0) { s += ', '; }
                                                 s += param.uml_class_operations_parameters_name + ': ' + param.uml_class_operations_parameters_type;
                                             }

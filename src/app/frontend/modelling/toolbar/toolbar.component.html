@@ -1,3 +1,7 @@
 <mat-toolbar color="primary">
   <a class="toolbar-icon backToStart" routerLink="/start" routerLinkActive="active" matTooltip="Back to the start"><mat-icon>keyboard_arrow_left</mat-icon></a>
+  <div class="tools">
+    <button mat-icon-button (click)="saveModel()" class="toolbar-icon" matTooltip="Save the model">
+      <mat-icon>save</mat-icon></button>
+  </div>
 </mat-toolbar>

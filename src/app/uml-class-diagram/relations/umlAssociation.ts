@@ -26,24 +26,34 @@ export class UmlAssociation implements Relation {
                 fromEntity: new UmlClass(),
                 toEntity: new UmlClass(),
                 cardinality: new SimpleCardinality({
-                    min: 0,
-                    max: Number.MAX_SAFE_INTEGER
+                    min: '1',
+                    max: 'n'
                 }, {
-                    min: 0,
-                    max: Number.MAX_SAFE_INTEGER
+                    min: '1',
+                    max: 'n'
                 })
             }
         ];
         this.imagePath = 'assets/uml/uml-association.svg';
         this.template =
-            this.$(go.Link,
+            this.$(go.Link, {
+                routing: go.Link.AvoidsNodes,
+                curve: go.Link.JumpOver
+            },
                 this.$(go.Shape),
+                this.$(go.TextBlock, 'from',  {
+                    segmentIndex: 1,
+                    segmentFraction: 0.3,
+                    segmentOffset: new go.Point(0, -15)
+                },
+                    new go.Binding('text', 'uml_association_cardinality', function (value: SimpleCardinality) {
+                        return value.from.min + '..' + value.from.max;
+                    })
+                ),
                 this.$(go.Shape, {
-                    toArrow: 'Standard'
-                }),
-                this.$(go.Shape, {
-                    segmentOffset: new go.Point(0, -25),
-                    segmentOrientation: go.Link.OrientUpright,
+                    // segmentOffset: new go.Point(0, -25),
+                    // segmentOrientation: go.Link.OrientUpright,
+                    alignmentFocus: new go.Spot(0, 0, -6, 25),
                     width: 10,
                     height: 7.5,
                     figure: 'TriangleRight',
@@ -57,13 +67,23 @@ export class UmlAssociation implements Relation {
                     }
                 })),
                 this.$(go.TextBlock,  {
-                    segmentOffset: new go.Point(0, -10),
-                    segmentOrientation: go.Link.OrientUpright,
+                    // segmentOffset: new go.Point(0, -10),
+                    // segmentOrientation: go.Link.OrientUpright,
+                    alignmentFocus: new go.Spot(0, 0, -2, 15),
                     textAlign: 'center',
                     stroke: '#000',
                     isMultiline: false,
                 },
                     new go.Binding('text', 'uml_association_name')
+                ),
+                this.$(go.TextBlock, 'to', {
+                    segmentIndex: -2,
+                    segmentFraction: 0.3,
+                    segmentOffset: new go.Point(0, -15)
+                },
+                    new go.Binding('text', 'uml_association_cardinality', function (value: SimpleCardinality) {
+                        return value.to.min + '..' + value.to.max;
+                    })
                 )
             );
 
@@ -72,7 +92,7 @@ export class UmlAssociation implements Relation {
     }
 }
 
-export class AssociationInstance {
+export class UmlAssociationInstance {
     constructor(
         public uml_association_name: string,
         public uml_association_isDerived: boolean,

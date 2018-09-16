@@ -6,7 +6,12 @@ mat-toolbar {
 
 .toolbar-icon {
   color: white;
-  font-size: 150% !important;
-  margin-top: 10px; }
+  font-size: 150% !important; }
+
+.backToStart {
+  padding-right: 5px;
+  margin-right: 10px;
+  border-right: white;
+  border-right-style: solid; }
 
 /*# sourceMappingURL=toolbar.component.css.map */

@@ -75,7 +75,6 @@ export class UmlClassSettingsComponent implements OnInit, SettingComponent, Afte
       diagram.model.setDataProperty(tempNodedata, 'uml_class_operations', this.uml_class_instance.uml_class_operations);
     diagram.commitTransaction('update node:' + this.uml_class_instance.id);
     this.parentComponent.close();
-    console.log(JSON.stringify(tempNodedata, null, 2));
   }
 
   public delete(): void {

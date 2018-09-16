@@ -18,6 +18,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LayoutModule} from '@angular/cdk/layout';
 import { UmlAssociationSettingsComponent } from './uml-association-settings/uml-association-settings.component';
 import {UmlAssociation} from './relations/umlAssociation';
+import {UmlGeneralization} from './relations/umlGeneralization';
+import {UmlHasAttached} from './relations/umlHasAttached';
+import { UmlIsCompositionOfSettingsComponent } from './uml-is-composition-of-settings/uml-is-composition-of-settings.component';
+import {UmlIsCompositionOf} from './relations/umlIsCompositionOf';
+import { UmlIsAggregationOfSettingsComponent } from './uml-is-aggregation-of-settings/uml-is-aggregation-of-settings.component';
+import {UmlIsAggregationOf} from './relations/umlIsAggregationOf';
 
 @NgModule({
   imports: [
@@ -43,9 +49,9 @@ import {UmlAssociation} from './relations/umlAssociation';
       MatTooltipModule,
       MatCheckboxModule
   ],
-  declarations: [UmlClassSettingsComponent, UmlAssociationSettingsComponent],
-  entryComponents: [UmlClassSettingsComponent, UmlAssociationSettingsComponent],
-  exports: [UmlClassSettingsComponent, UmlAssociationSettingsComponent]
+  declarations: [UmlClassSettingsComponent, UmlAssociationSettingsComponent, UmlIsCompositionOfSettingsComponent, UmlIsAggregationOfSettingsComponent],
+  entryComponents: [UmlClassSettingsComponent, UmlAssociationSettingsComponent, UmlIsCompositionOfSettingsComponent, UmlIsAggregationOfSettingsComponent],
+  exports: [UmlClassSettingsComponent, UmlAssociationSettingsComponent, UmlIsCompositionOfSettingsComponent, UmlIsAggregationOfSettingsComponent]
 })
 export class UmlClassDiagramModule {
 
@@ -55,11 +61,17 @@ export class UmlClassDiagramModule {
         new UmlClass()
     ];
     const relations = [
-        new UmlAssociation()
+        new UmlAssociation(),
+        new UmlGeneralization(),
+        new UmlHasAttached(),
+        new UmlIsCompositionOf(),
+        new UmlIsAggregationOf()
     ];
     const settingsComponents = {
       'uml_class': UmlClassSettingsComponent,
       'uml_association': UmlAssociationSettingsComponent,
+      'uml_isCompositionOf': UmlIsCompositionOfSettingsComponent,
+      'uml_isAggregationOf': UmlIsAggregationOfSettingsComponent
     };
 
     this.language = new Language(

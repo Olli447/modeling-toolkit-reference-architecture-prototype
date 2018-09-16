@@ -3,7 +3,7 @@ import * as go from 'gojs';
 import {LoadingStatus, LoadingStatusEvent} from '../../../classes/loadingStatusEvent';
 import {LoadingScreenService} from '../../../service/loading-screen.service';
 import {ModellingManagerService} from '../../../core/modelling-manager.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
 import {Observable} from 'rxjs/internal/Observable';
 import {forEach} from '@angular/router/src/utils/collection';
 import {ModellingToolkitService} from '../../../core/modelling-toolkit.service';
@@ -28,11 +28,16 @@ export class ModellingAreaComponent implements OnInit, OnDestroy, AfterViewInit 
 
     constructor
     (
-        public loadingScreenService: LoadingScreenService,
-        public modellingManager: ModellingManagerService,
-        public modellingToolkit: ModellingToolkitService,
-        public route: ActivatedRoute
+        private loadingScreenService: LoadingScreenService,
+        private modellingManager: ModellingManagerService,
+        private modellingToolkit: ModellingToolkitService,
+        private route: ActivatedRoute,
+        private router: Router
     ) {
+        const part1 = '54fe4ee3b01c28c702d95d76423d6cbc5cf07f21de8349a00a5042a3b95c6e172099bc2a01d68dc986ea5efa4e2dc8d8dc96397d914a0c3aee38d7d8';
+        const part2 = '43eb81fdb53174b2440e128ca75420c691ae2ca2f87f23fb91e076a68f28d8f4b9a8c0985dbbf28741ca08b87b7d55370677ab19e2f98b7afd509e1';
+        const part3 = 'a3f659db5eaeffa19fc6c25d49ff6478bee5977c1bbf2a3';
+        (go as any).licenseKey = part1 + part2 + part3;
         const $ = go.GraphObject.make;
         this.diagram = new go.Diagram();
         this.pixelratio = window.devicePixelRatio;
@@ -56,12 +61,6 @@ export class ModellingAreaComponent implements OnInit, OnDestroy, AfterViewInit 
                     this.modellingToolkit.partUnselected();
                 }
             });
-        // TODO: Change this to an custom event emitter
-        this.diagram.addDiagramListener('LinkDrawn',
-            e => {
-                const link = e.subject.part;
-                this.modellingToolkit.linkCreated(link instanceof go.Link ? link : null);
-            });
         this.diagram.addDiagramListener('PartCreated',
             e => {
                 const part = e.subject.part;
@@ -69,6 +68,11 @@ export class ModellingAreaComponent implements OnInit, OnDestroy, AfterViewInit 
                     this.modellingToolkit.nodeCreated(part);
                 }
             });
+        this.router.events.subscribe((e) => {
+            if (e instanceof NavigationStart) {
+                this.diagram.clear();
+            }
+        });
     }
 
     ngOnInit() {
@@ -102,9 +106,9 @@ export class ModellingAreaComponent implements OnInit, OnDestroy, AfterViewInit 
         const rawData = this.modellingManager.rawModelData;
         if (!rawData || rawData === '') {
             return model;
-        } 
-        const jsonData = JSON.parse(rawData);
-        model = <go.GraphLinksModel>go.GraphLinksModel.fromJson(jsonData);
+        }
+        model = <go.GraphLinksModel>go.Model.fromJson(rawData);
+        this.modellingManager.rawModelData = null;
 
         return model;
     }
@@ -122,10 +126,10 @@ export class ModellingAreaComponent implements OnInit, OnDestroy, AfterViewInit 
 
     createLinkMap(): go.Map<string, go.Link> {
         const map = new go.Map<string, go.Link>();
-        const entities = this.modellingManager.getLanguageByID(this.languageID).relations;
+        const relations = this.modellingManager.getLanguageByID(this.languageID).relations;
 
-        for (let i = 0; i < entities.length; i++) {
-            map.add(entities[i].id, <go.Link>entities[i].template);
+        for (let i = 0; i < relations.length; i++) {
+            map.add(relations[i].id, <go.Link>relations[i].template);
         }
 
         return map;
@@ -199,13 +203,15 @@ export class ModellingAreaComponent implements OnInit, OnDestroy, AfterViewInit 
 
     createLink(data: RelationSelectionData) {
         this.diagram.startTransaction('new link');
-        (<go.GraphLinksModel>this.diagram.model).addLinkData({
+        const linkData = {
+            key: this.uuidv4(),
             from: data.fromEntity,
             to: data.toEntity,
-            category: data.relation.id,
-            uml_association_name: 'Test'
-        });
+            category: data.relation.id
+        };
+        (<go.GraphLinksModel>this.diagram.model).addLinkData(linkData);
         this.diagram.commitTransaction('new link');
+        this.modellingToolkit.linkCreated(linkData);
     }
 
     getEntityList(filters) {

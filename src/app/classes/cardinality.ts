@@ -1,8 +1,8 @@
 export class SimpleCardinality {
-    from: {min: number, max: number};
-    to: {min: number, max: number};
+    from: {min: string, max: string};
+    to: {min: string, max: string};
 
-    constructor(from: {min: number, max: number}, to: {min: number, max: number}) {
+    constructor(from: {min: string, max: string}, to: {min: string, max: string}) {
         this.from = from;
         this.to = to;
     }

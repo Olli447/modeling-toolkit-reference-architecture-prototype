@@ -1,3 +1,99 @@
-<p>
-  uml-association-settings works!
-</p>
+<div class="form-container">
+  <form (ngSubmit)="onSubmit()" #associationForm="ngForm">
+    <div class="form-group">
+      <mat-form-field class="form-item">
+        <mat-select [(ngModel)]="uml_association_instance.uml_association_visibility"
+                    name="uml_association_visibility"
+                    class="form-control"
+                    id="uml_association_visibility"
+                    matInput
+                    #name="ngModel"
+                    placeholder="Visibility">
+          <mat-option value="+">Public</mat-option>
+          <mat-option value="#">Protected</mat-option>
+          <mat-option value="−">Private</mat-option>
+          <mat-option value="~">Package</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-item">
+        <input [(ngModel)]="uml_association_instance.uml_association_name"
+               name="uml_association_name"
+               type="text"
+               class="form-control"
+               id="uml_association_name"
+               matInput
+               required
+               #name="ngModel"
+               placeholder="Name">
+      </mat-form-field>
+
+      <mat-checkbox [(ngModel)]="uml_association_instance.uml_association_isDerived"
+                    name="uml_association_isDerived"
+                    id="uml_association_isDerived"
+                    class="form-control"
+                    #name="ngModel">
+        isDerived?
+      </mat-checkbox>
+
+      <mat-checkbox [(ngModel)]="uml_association_instance.uml_association_readingDirectionIsRight"
+                    name="uml_association_readingDirectionIsRight"
+                    id="uml_association_readingDirectionIsRight"
+                    class="form-control"
+                    #name="ngModel">
+        readingDirectionIsRight?
+      </mat-checkbox>
+    </div>
+    <div class="form-group">
+      <h4>From Cardinality</h4>
+      <mat-form-field class="form-item">
+        <input [(ngModel)]="uml_association_instance.uml_association_cardinality.from.min"
+               name="uml_association_cardinality.from.min"
+               type="text"
+               class="form-control"
+               id="uml_association_cardinality.from.min"
+               matInput
+               #name="ngModel"
+               placeholder="min">
+      </mat-form-field>
+
+      <mat-form-field class="form-item">
+        <input [(ngModel)]="uml_association_instance.uml_association_cardinality.from.max"
+               name="uml_association_cardinality.from.max"
+               type="text"
+               class="form-control"
+               id="uml_association_cardinality.from.max"
+               matInput
+               #name="ngModel"
+               placeholder="max">
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <h4>To Cardinality</h4>
+      <mat-form-field class="form-item">
+        <input [(ngModel)]="uml_association_instance.uml_association_cardinality.to.min"
+               name="uml_association_cardinality.to.min"
+               type="text"
+               class="form-control"
+               id="uml_association_cardinality.to.min"
+               matInput
+               #name="ngModel"
+               placeholder="min">
+      </mat-form-field>
+
+      <mat-form-field class="form-item">
+        <input [(ngModel)]="uml_association_instance.uml_association_cardinality.to.max"
+               name="uml_association_cardinality.to.max"
+               type="text"
+               class="form-control"
+               id="uml_association_cardinality.to.max"
+               matInput
+               #name="ngModel"
+               placeholder="max">
+      </mat-form-field>
+    </div>
+
+    <button #submitAssociationForm mat-raised-button  type="submit" [disabled]="!associationForm.form.valid" initialFocus>Submit</button>
+  </form>
+</div>

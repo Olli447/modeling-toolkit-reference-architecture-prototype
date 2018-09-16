@@ -1,7 +1,7 @@
 {
 "version": 3,
 "mappings": "AAAA,eAAgB;EACd,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;;AAGxB,mBAAoB;EAClB,KAAK,EAAE,IAAI;;AAGb,WAAY;EACV,aAAa,EAAE,IAAI;EACnB,OAAO,EAAE,IAAI;EACb,SAAS,EAAE,IAAI;EACf,cAAc,EAAE,GAAG;;AAErB,eAAgB;EACd,SAAS,EAAE,CAAC;EACZ,UAAU,EAAE,IAAI;;AAGlB,UAAW;EACT,MAAM,EAAE,GAAG",
-"sources": ["uml-association-settings.component.scss"],
+"sources": ["uml-is-aggregation-of-settings.component.scss"],
 "names": [],
-"file": "uml-association-settings.component.css"
+"file": "uml-is-aggregation-of-settings.component.css"
 }

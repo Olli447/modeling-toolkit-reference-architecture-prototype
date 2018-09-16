@@ -5,7 +5,7 @@ import {Subscription} from 'rxjs/internal/Subscription';
 import * as go from 'gojs';
 import {Language} from '../../../classes/language';
 import {SettingComponent} from '../../../classes/settingItem';
-import {MatSidenav} from '@angular/material';
+import {MatSidenav, MatSnackBar} from '@angular/material';
 import {error} from 'util';
 
 @Component({
@@ -24,24 +24,27 @@ export class SettingsSidebarComponent implements OnInit, OnDestroy {
   sidebar: MatSidenav;
 
   nodeSelectedSubscription: Subscription;
-  nodeUnselectedSubscription: Subscription;
+  linkSelectedSubscription: Subscription;
+  partUnselectedSubscription: Subscription;
   nodeCreatedSubscription: Subscription;
   linkCreatedSubscription: Subscription;
   currentLanguageSubscription: Subscription;
 
   constructor(
       private componentFactoryResolver: ComponentFactoryResolver,
-      private modellingToolkit: ModellingToolkitService
+      private modellingToolkit: ModellingToolkitService,
+      private snackBar: MatSnackBar
               ) { }
 
   ngOnInit( ) {
     this.modellingToolkit.settingSidebarComponent = this;
 
     this.nodeSelectedSubscription = this.modellingToolkit.nodeSelected$.subscribe((node: any) => this.onNodeSelected(node));
+    this.linkSelectedSubscription = this.modellingToolkit.linkSelected$.subscribe((link: any) => this.onLinkSelected(link));
     this.nodeCreatedSubscription = this.modellingToolkit.nodeCreated$.subscribe((node: any) => this.onNodeSelected(node));
     this.linkCreatedSubscription = this.modellingToolkit.linkCreated$.subscribe((link: any) => this.onLinkSelected(link));
 
-    this.nodeUnselectedSubscription = this.modellingToolkit.partUnselected$.subscribe(() => {
+    this.partUnselectedSubscription = this.modellingToolkit.partUnselected$.subscribe(() => {
         this.close();
     });
     this.currentLanguageSubscription = this.modellingToolkit.currentLanguage$.subscribe((language: Language) => {
@@ -62,6 +65,13 @@ export class SettingsSidebarComponent implements OnInit, OnDestroy {
     const component = this.settingComponents[node.category];
     // console.log(node);
 
+    if (!component) {
+      this.snackBar.open('There are no settings for this object', null, {
+        duration: 1500
+      });
+      return;
+    }
+
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
     const viewContainerRef = this.settingHost.viewContainerRef;
     viewContainerRef.clear();
@@ -73,7 +83,7 @@ export class SettingsSidebarComponent implements OnInit, OnDestroy {
 
 
   private onLinkSelected(link: any) {
-    throw error('Function "onLinkSelected" not implemented yet');
+    this.onNodeSelected(link);
   }
 
   deleteButtonPressed() {

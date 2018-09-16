@@ -14,7 +14,7 @@ import {
     MatDividerModule, MatFormFieldModule,
     MatGridListModule,
     MatIconModule, MatInputModule,
-    MatMenuModule, MatProgressBarModule, MatSidenavModule, MatTooltipModule
+    MatMenuModule, MatProgressBarModule, MatSidenavModule, MatSnackBarModule, MatTooltipModule
 } from '@angular/material';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {LayoutModule} from '@angular/cdk/layout';
@@ -56,6 +56,7 @@ import { ElementRelationSelectionComponent } from './modelling/elements-sidebar/
     LayoutModule,
     MatFormFieldModule,
     MatAutocompleteModule,
+    MatSnackBarModule
   ],
   declarations: [
       LanguageSelectionComponent,
@@ -72,7 +73,7 @@ import { ElementRelationSelectionComponent } from './modelling/elements-sidebar/
       ElementEntityComponent,
       ElementRelationComponent,
       SettingsDirective,
-      ElementRelationSelectionComponent
+      ElementRelationSelectionComponent,
   ],
   entryComponents: [LanguageLoadDialog],
   exports: [LoadingScreenComponent],

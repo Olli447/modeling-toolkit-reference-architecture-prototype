@@ -2,6 +2,7 @@ import {Component, HostListener, OnInit, ViewChild, ViewEncapsulation} from '@an
 import * as go from 'gojs';
 import {settings} from 'cluster';
 import {MatSidenav} from '@angular/material';
+import {ModellingToolkitService} from '../../core/modelling-toolkit.service';
 
 @Component({
   selector: 'app-modelling',
@@ -13,13 +14,13 @@ export class ModellingComponent implements OnInit {
   @ViewChild('settings')
   public settingsSidebar: MatSidenav;
 
-  constructor() { }
+  constructor(private modellingToolkit: ModellingToolkitService) { }
 
   ngOnInit() {
   }
 
   hasUnsavedData(): Boolean {
-    return false;
+    return this.modellingToolkit.isModelDataUnsaved;
   }
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {

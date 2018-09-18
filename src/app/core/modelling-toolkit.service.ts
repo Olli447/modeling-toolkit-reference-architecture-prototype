@@ -14,11 +14,10 @@ import {ContentCheckManagerService} from './content-check-manager.service';
   providedIn: 'root'
 })
 export class ModellingToolkitService {
-  private entities: EntityInstance[];
-  private relations: RelationInstance[];
   private settingsComponents: { [key: string ]: Type<any> ; };
   public modellingAreaComponent: ModellingAreaComponent;
   public settingSidebarComponent: SettingsSidebarComponent;
+  public isModelDataUnsaved: boolean;
 
   public currentLanguageID: string;
   private  currentLanguageSource: Subject<Language> = new Subject<Language>();
@@ -61,23 +60,6 @@ export class ModellingToolkitService {
                 return language.relations[i];
             }
         }
-    }
-
-    getEntityInstanceByID(id: string): EntityInstance {
-        for (let i = 0; i < this.entities.length; i++) {
-            if (this.entities[i].id === id) {
-              return this.entities[i];
-            }
-        }
-        return null;
-    }
-    getRelationInstanceByID(fromID: string, toID: string) {
-        for (let i = 0; i < this.relations.length; i++) {
-            if (this.relations[i].from === fromID && this.relations[i].to === toID) {
-              return this.relations[i];
-            }
-        }
-        return null;
     }
 
     setLanguage(languageID: string) {

@@ -44,6 +44,9 @@ export class ModellingAreaComponent implements OnInit, OnDestroy, AfterViewInit 
         this.diagram.initialContentAlignment = go.Spot.Center;
         this.diagram.allowDrop = true;  // necessary for dragging from Palette
         this.diagram.undoManager.isEnabled = true;
+        this.diagram.addModelChangedListener(() => {
+            this.modellingToolkit.isModelDataUnsaved = true;
+        });
         this.diagram.addDiagramListener('ObjectDoubleClicked',
             e => {
                 const part = e.subject.part;

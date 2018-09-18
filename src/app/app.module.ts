@@ -8,6 +8,7 @@ import { FrontendModule } from './frontend/frontend.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ServiceModule} from './service/service.module';
 import {UmlClassDiagramModule} from './uml-class-diagram/uml-class-diagram.module';
+import {CoreModule} from './core/core.module';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import {UmlClassDiagramModule} from './uml-class-diagram/uml-class-diagram.modul
     BrowserAnimationsModule,
     AppRoutingModule,
     FrontendModule,
+    CoreModule,
     ServiceModule,
     UmlClassDiagramModule
   ],

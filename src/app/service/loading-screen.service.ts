@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {LoadingStatusEvent} from '../classes/loadingStatusEvent';
+import {LoadingStatusEvent} from '../core/classes/loadingStatusEvent';
 import { Subject } from 'rxjs';
 
 @Injectable({

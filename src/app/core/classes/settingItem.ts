@@ -1,5 +1,5 @@
 import {Type} from '@angular/core';
-import {SettingsSidebarComponent} from '../frontend/modelling/settings-sidebar/settings-sidebar.component';
+import {SettingsSidebarComponent} from '../../frontend/modelling/settings-sidebar/settings-sidebar.component';
 
 export class SettingItem {
     component: Type<any>;

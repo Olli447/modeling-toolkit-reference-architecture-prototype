@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs/internal/Subscription';
 import {LoadingScreenService} from '../../service/loading-screen.service';
-import {LoadingStatus} from '../../classes/loadingStatusEvent';
+import {LoadingStatus} from '../../core/classes/loadingStatusEvent';
 
 @Component({
   selector: 'app-loading-screen',

@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Relation} from '../../../../classes/relation';
+import {Relation} from '../../../../core/classes/relation';
 import {ModellingToolkitService} from '../../../../core/modelling-toolkit.service';
 import * as go from 'gojs';
 import {tokenReference} from '@angular/compiler';
-import {HelperFunctions} from '../../../../classes/helperFunctions';
+import {HelperFunctions} from '../../../../core/classes/helperFunctions';
 import {ContentCheckManagerService} from '../../../../core/content-check-manager.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 

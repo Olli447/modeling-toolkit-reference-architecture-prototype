@@ -3,8 +3,8 @@ import {SettingsSidebarComponent} from '../../../frontend/modelling/settings-sid
 import {UmlIsAggregationOfInstance} from '../../relations/umlIsAggregationOf';
 import {MatButton} from '@angular/material';
 import {ModellingToolkitService} from '../../../core/modelling-toolkit.service';
-import {HelperFunctions} from '../../../classes/helperFunctions';
-import {SimpleCardinality} from '../../../classes/cardinality';
+import {HelperFunctions} from '../../../core/classes/helperFunctions';
+import {SimpleCardinality} from '../../../core/classes/cardinality';
 import * as go from 'gojs';
 
 @Component({

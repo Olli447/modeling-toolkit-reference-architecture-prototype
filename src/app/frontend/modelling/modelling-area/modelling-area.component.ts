@@ -1,14 +1,14 @@
 import {Component, ElementRef, OnInit, ViewChild, Input, Output, EventEmitter, OnDestroy, AfterViewInit, HostListener} from '@angular/core';
 import * as go from 'gojs';
-import {LoadingStatus, LoadingStatusEvent} from '../../../classes/loadingStatusEvent';
+import {LoadingStatus, LoadingStatusEvent} from '../../../core/classes/loadingStatusEvent';
 import {LoadingScreenService} from '../../../service/loading-screen.service';
 import {ModellingManagerService} from '../../../core/modelling-manager.service';
 import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
 import {Observable} from 'rxjs/internal/Observable';
 import {forEach} from '@angular/router/src/utils/collection';
 import {ModellingToolkitService} from '../../../core/modelling-toolkit.service';
-import {Entity} from '../../../classes/entity';
-import {ElementType} from '../../../classes/elementTypeEnum';
+import {Entity} from '../../../core/classes/entity';
+import {ElementType} from '../../../core/classes/elementTypeEnum';
 import {RelationSelectionData} from '../elements-sidebar/element-relation-selection/element-relation-selection.component';
 @Component({
   selector: 'app-modelling-area',

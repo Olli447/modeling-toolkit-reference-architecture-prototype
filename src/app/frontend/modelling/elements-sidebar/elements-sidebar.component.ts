@@ -1,11 +1,11 @@
 import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {element} from 'protractor';
-import {Relation} from '../../../classes/relation';
-import {Entity} from '../../../classes/entity';
-import {Variable} from '../../../classes/variable';
+import {Relation} from '../../../core/classes/relation';
+import {Entity} from '../../../core/classes/entity';
+import {Variable} from '../../../core/classes/variable';
 import {ModellingToolkitService} from '../../../core/modelling-toolkit.service';
 import {Subscription} from 'rxjs/internal/Subscription';
-import {Language} from '../../../classes/language';
+import {Language} from '../../../core/classes/language';
 import * as go from 'gojs';
 
 @Component({

@@ -1,6 +1,6 @@
 import {Entity} from './entity';
 import {Relation} from './relation';
-import {UmlClassSettingsComponent} from '../uml-class-diagram/settingComponents/uml-class-settings/uml-class-settings.component';
+import {UmlClassSettingsComponent} from '../../uml-class-diagram/settingComponents/uml-class-settings/uml-class-settings.component';
 import {Type} from '@angular/core';
 import {CheckHandlerArray} from './abstractCheckHandler';
 

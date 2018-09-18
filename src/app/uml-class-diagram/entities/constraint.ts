@@ -1,5 +1,5 @@
-import {Entity} from '../../classes/entity';
-import {Variable} from '../../classes/variable';
+import {Entity} from '../../core/classes/entity';
+import {Variable} from '../../core/classes/variable';
 
 export class Constraint implements Entity {
     id: string;

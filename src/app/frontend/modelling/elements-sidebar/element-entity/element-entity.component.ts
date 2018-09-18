@@ -1,8 +1,8 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
-import {AbstractElement} from '../../../../classes/abstractElement';
-import {Entity} from '../../../../classes/entity';
-import {Relation} from '../../../../classes/relation';
-import {ElementType} from '../../../../classes/elementTypeEnum';
+import {AbstractElement} from '../../../../core/classes/abstractElement';
+import {Entity} from '../../../../core/classes/entity';
+import {Relation} from '../../../../core/classes/relation';
+import {ElementType} from '../../../../core/classes/elementTypeEnum';
 
 @Component({
   selector: 'app-element-entity',

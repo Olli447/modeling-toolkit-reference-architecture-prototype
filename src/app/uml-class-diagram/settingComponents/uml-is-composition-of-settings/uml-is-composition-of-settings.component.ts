@@ -2,8 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {SettingsSidebarComponent} from '../../../frontend/modelling/settings-sidebar/settings-sidebar.component';
 import {MatButton} from '@angular/material';
 import {ModellingToolkitService} from '../../../core/modelling-toolkit.service';
-import {HelperFunctions} from '../../../classes/helperFunctions';
-import {SimpleCardinality} from '../../../classes/cardinality';
+import {HelperFunctions} from '../../../core/classes/helperFunctions';
+import {SimpleCardinality} from '../../../core/classes/cardinality';
 import * as go from 'gojs';
 import {UmlIsCompositionOfInstance} from '../../relations/umlIsCompositionOf';
 

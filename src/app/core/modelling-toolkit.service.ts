@@ -1,10 +1,10 @@
 import {ComponentRef, ElementRef, Injectable, Type} from '@angular/core';
-import {Language} from '../classes/language';
+import {Language} from './classes/language';
 import {ModellingManagerService} from './modelling-manager.service';
 import {Subject} from 'rxjs/internal/Subject';
 import * as go from 'gojs';
-import {Entity, EntityInstance} from '../classes/entity';
-import {Relation, RelationInstance} from '../classes/relation';
+import {Entity, EntityInstance} from './classes/entity';
+import {Relation, RelationInstance} from './classes/relation';
 import {tryCatch} from 'rxjs/internal-compatibility';
 import {ModellingAreaComponent} from '../frontend/modelling/modelling-area/modelling-area.component';
 import {SettingsSidebarComponent} from '../frontend/modelling/settings-sidebar/settings-sidebar.component';

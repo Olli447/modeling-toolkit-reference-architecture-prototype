@@ -3,8 +3,8 @@ import {SettingsDirective} from './settings.directive';
 import {ModellingToolkitService} from '../../../core/modelling-toolkit.service';
 import {Subscription} from 'rxjs/internal/Subscription';
 import * as go from 'gojs';
-import {Language} from '../../../classes/language';
-import {SettingComponent} from '../../../classes/settingItem';
+import {Language} from '../../../core/classes/language';
+import {SettingComponent} from '../../../core/classes/settingItem';
 import {MatSidenav, MatSnackBar} from '@angular/material';
 import {error} from 'util';
 

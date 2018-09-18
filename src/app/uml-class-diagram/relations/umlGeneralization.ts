@@ -1,7 +1,7 @@
-import {Relation} from '../../classes/relation';
-import {Entity} from '../../classes/entity';
-import {SimpleCardinality} from '../../classes/cardinality';
-import {Variable} from '../../classes/variable';
+import {Relation} from '../../core/classes/relation';
+import {Entity} from '../../core/classes/entity';
+import {SimpleCardinality} from '../../core/classes/cardinality';
+import {Variable} from '../../core/classes/variable';
 import {UmlClass} from '../entities/class';
 import * as go from 'gojs';
 
@@ -34,7 +34,7 @@ export class UmlGeneralization implements Relation {
                     })
                 }
             ];
-        this.imagePath = 'assets/uml/uml-generalization.svg';
+        this.imagePath = '../../assets/uml/uml-generalization.svg';
 
         this.template =
             this.$(go.Link, {

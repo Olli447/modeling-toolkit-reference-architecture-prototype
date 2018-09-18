@@ -1,12 +1,12 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {SettingComponent, SettingItem} from '../../../classes/settingItem';
+import {SettingComponent, SettingItem} from '../../../core/classes/settingItem';
 import {UmlClassInstance} from '../../entities/class';
 import {ModellingToolkitService} from '../../../core/modelling-toolkit.service';
 import {SettingsSidebarComponent} from '../../../frontend/modelling/settings-sidebar/settings-sidebar.component';
 import {MatButton} from '@angular/material';
 import {UmlClassAttributes} from '../../classes/property';
 import {UmlClassOperations, UmlClassOperationsParameters} from '../../classes/operation';
-import {HelperFunctions} from '../../../classes/helperFunctions';
+import {HelperFunctions} from '../../../core/classes/helperFunctions';
 
 @Component({
   selector: 'app-uml-class-settings',

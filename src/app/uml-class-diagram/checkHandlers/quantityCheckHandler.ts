@@ -1,5 +1,5 @@
-import {AbstractCheckHandler, CheckReturn} from '../../classes/abstractCheckHandler';
-import {Relation} from '../../classes/relation';
+import {AbstractCheckHandler, CheckReturn} from '../../core/classes/abstractCheckHandler';
+import {Relation} from '../../core/classes/relation';
 import * as go from 'gojs';
 
 export class QuantityCheckHandler extends AbstractCheckHandler {

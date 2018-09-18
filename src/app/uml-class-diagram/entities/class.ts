@@ -1,5 +1,5 @@
-import {Entity, EntityInstance} from '../../classes/entity';
-import {Variable, VariableType} from '../../classes/variable';
+import {Entity, EntityInstance} from '../../core/classes/entity';
+import {Variable, VariableType} from '../../core/classes/variable';
 import * as go from 'gojs';
 import {UmlClassOperations} from '../classes/operation';
 import {UmlClassAttributes} from '../classes/property';
@@ -51,7 +51,7 @@ export class UmlClass implements Entity {
               new Variable('uml_class_operations_isClassScope', 'Class scope?', VariableType.CHECKBOX)
           ])
         ];
-        this.imagePath = 'assets/uml/uml-class.svg';
+        this.imagePath = '../../assets/uml/uml-class.svg';
 
         this.template =
 

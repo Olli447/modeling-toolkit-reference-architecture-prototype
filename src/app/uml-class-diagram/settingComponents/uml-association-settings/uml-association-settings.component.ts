@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {SettingComponent} from '../../../classes/settingItem';
+import {SettingComponent} from '../../../core/classes/settingItem';
 import {SettingsSidebarComponent} from '../../../frontend/modelling/settings-sidebar/settings-sidebar.component';
 import {UmlAssociationInstance} from '../../relations/umlAssociation';
 import {MatButton} from '@angular/material';
 import {ModellingToolkitService} from '../../../core/modelling-toolkit.service';
-import {HelperFunctions} from '../../../classes/helperFunctions';
-import {SimpleCardinality} from '../../../classes/cardinality';
+import {HelperFunctions} from '../../../core/classes/helperFunctions';
+import {SimpleCardinality} from '../../../core/classes/cardinality';
 import * as go from 'gojs';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Language} from '../../classes/language';
+import {Language} from '../../core/classes/language';
 import {ModellingManagerService} from '../../core/modelling-manager.service';
 
 @Component({

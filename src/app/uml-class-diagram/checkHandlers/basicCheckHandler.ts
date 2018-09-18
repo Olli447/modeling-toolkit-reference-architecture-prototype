@@ -1,6 +1,6 @@
-import {AbstractCheckHandler, CheckReturn} from '../../classes/abstractCheckHandler';
+import {AbstractCheckHandler, CheckReturn} from '../../core/classes/abstractCheckHandler';
 import * as go from 'gojs';
-import {Relation} from '../../classes/relation';
+import {Relation} from '../../core/classes/relation';
 
 export class BasicCheckHandler extends AbstractCheckHandler {
     check(diagram: go.Diagram, relation: Relation, relationInstance: any): CheckReturn {

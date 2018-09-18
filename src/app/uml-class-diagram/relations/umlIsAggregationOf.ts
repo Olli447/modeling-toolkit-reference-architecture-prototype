@@ -1,7 +1,7 @@
-import {Relation} from '../../classes/relation';
-import {Entity} from '../../classes/entity';
-import {SimpleCardinality} from '../../classes/cardinality';
-import {Variable} from '../../classes/variable';
+import {Relation} from '../../core/classes/relation';
+import {Entity} from '../../core/classes/entity';
+import {SimpleCardinality} from '../../core/classes/cardinality';
+import {Variable} from '../../core/classes/variable';
 import * as go from 'gojs';
 import {UmlClass} from '../entities/class';
 
@@ -33,7 +33,7 @@ export class UmlIsAggregationOf implements Relation {
                     })
                 }
             ];
-        this.imagePath = 'assets/uml/uml-is_aggregation_of.png';
+        this.imagePath = '../../assets/uml/uml-is_aggregation_of.png';
         this.template =
             this.$(go.Link, {
                     routing: go.Link.AvoidsNodes,

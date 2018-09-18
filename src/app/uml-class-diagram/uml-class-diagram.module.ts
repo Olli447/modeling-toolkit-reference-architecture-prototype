@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ModellingManagerService} from '../core/modelling-manager.service';
-import {Language} from '../classes/language';
+import {Language} from '../core/classes/language';
 import {UmlClass} from './entities/class';
 import { UmlClassSettingsComponent } from './settingComponents/uml-class-settings/uml-class-settings.component';
 import {
@@ -24,7 +24,7 @@ import { UmlIsCompositionOfSettingsComponent } from './settingComponents/uml-is-
 import {UmlIsCompositionOf} from './relations/umlIsCompositionOf';
 import { UmlIsAggregationOfSettingsComponent } from './settingComponents/uml-is-aggregation-of-settings/uml-is-aggregation-of-settings.component';
 import {UmlIsAggregationOf} from './relations/umlIsAggregationOf';
-import {CheckHandlerArray} from '../classes/abstractCheckHandler';
+import {CheckHandlerArray} from '../core/classes/abstractCheckHandler';
 import {BasicCheckHandler} from './checkHandlers/basicCheckHandler';
 import {QuantityCheckHandler} from './checkHandlers/quantityCheckHandler';
 

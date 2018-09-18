@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {CheckHandlerArray, CheckReturn} from '../classes/abstractCheckHandler';
+import {CheckHandlerArray, CheckReturn} from './classes/abstractCheckHandler';
 import {ModellingToolkitService} from './modelling-toolkit.service';
 import {Subscription} from 'rxjs/internal/Subscription';
-import {Language} from '../classes/language';
-import {Relation} from '../classes/relation';
+import {Language} from './classes/language';
+import {Relation} from './classes/relation';
 import {RelationSelectionData} from '../frontend/modelling/elements-sidebar/element-relation-selection/element-relation-selection.component';
 import {ModellingManagerService} from './modelling-manager.service';
 import * as go from 'gojs';

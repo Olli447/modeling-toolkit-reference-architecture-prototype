@@ -22,40 +22,7 @@ export class UmlClass implements AbstractEntity {
         this.id = 'uml_class';
         this.name = 'Class';
 
-        this.variables = [
-          new Variable('uml_class_keyword', 'Keyword', VariableType.TEXT, '/[<]{2}\w+[>]{2}/', 'Schema <<name>>', null),
-          new Variable('uml_class_name', 'Name',  VariableType.TEXT),
-          new Variable('uml_class_property', 'Property', VariableType.TEXT),
-          new Variable('uml_class_attributes', 'Attribute', VariableType.COMPOSED_MULTIPLE , null, null, null, [
-              new Variable('uml_class_attributes_visibility', 'Visibility', VariableType.ENUMERATION, null, null, [
-                  '+',
-                  '#',
-                  '−',
-                  '~'
-              ]),
-              new Variable('uml_class_attributes_name', 'Name', VariableType.TEXT, null),
-              new Variable('uml_class_attributes_type', 'Type', VariableType.TEXT, null),
-              new Variable('uml_class_attributes_value', 'Value', VariableType.TEXT, null),
-              new Variable('uml_class_attributes_isClassScope', 'Class scope?', VariableType.CHECKBOX)
-              ]),
-          new Variable('uml_class_operations', 'Operations', VariableType.COMPOSED_MULTIPLE, null, null, null, [
-              new Variable('uml_class_operations_visibility', 'Visibility', VariableType.ENUMERATION, null, null, [
-                  '+',
-                  '#',
-                  '−',
-                  '~'
-              ]),
-              new Variable('uml_class_operations_name', 'Name', VariableType.TEXT),
-              new Variable('uml_class_operations_parameters', 'Types', VariableType.COMPOSED_MULTIPLE, null, null, null,  [
-                  new Variable('uml_class_operations_parameters_name', 'Name', VariableType.TEXT),
-                  new Variable('uml_class_operations_parameters_type', 'Type', VariableType.TEXT)
-              ]),
-              new Variable('uml_class_operations_returntype', 'Returntype', VariableType.TEXT),
-              new Variable('uml_class_operations_isClassScope', 'Class scope?', VariableType.CHECKBOX)
-          ])
-        ];
         this.imagePath = '../../assets/uml/uml-class.svg';
-
         this.template =
 
             this.$(go.Node, 'Auto',
@@ -125,10 +92,10 @@ export class UmlClass implements AbstractEntity {
                                     // method parameters
                                     this.$(go.TextBlock, '()',
                                         // this does not permit adding/editing/removing of parameters via inplace edits
-                                        new go.Binding('text', 'uml_class_operations_parameters', function(parr) {
+                                        new go.Binding('text', 'uml_class_operations_parameters', function(parameters) {
                                             let s = '(';
-                                            for (let i = 0; i < parr.length; i++) {
-                                                const param = parr[i];
+                                            for (let i = 0; i < parameters.length; i++) {
+                                                const param = parameters[i];
                                                 if (!param.uml_class_operations_parameters_name || !param.uml_class_operations_parameters_type) {
                                                     return;
                                                 }

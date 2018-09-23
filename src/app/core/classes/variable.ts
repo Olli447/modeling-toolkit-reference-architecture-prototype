@@ -1,5 +1,6 @@
 import {t} from '@angular/core/src/render3';
 
+
 export class Variable {
     id: string;
     name: string;

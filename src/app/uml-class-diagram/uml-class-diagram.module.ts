@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ModellingManagerService} from '../core/modelling-manager.service';
-import {Language} from '../core/classes/language';
+import {Language, SettingComponentArray} from '../core/classes/language';
 import {UmlClass} from './entities/class';
 import { UmlClassSettingsComponent } from './settingComponents/uml-class-settings/uml-class-settings.component';
 import {
@@ -56,6 +56,9 @@ import {QuantityCheckHandler} from './checkHandlers/quantityCheckHandler';
   entryComponents: [UmlClassSettingsComponent, UmlAssociationSettingsComponent, UmlIsCompositionOfSettingsComponent, UmlIsAggregationOfSettingsComponent],
   exports: [UmlClassSettingsComponent, UmlAssociationSettingsComponent, UmlIsCompositionOfSettingsComponent, UmlIsAggregationOfSettingsComponent]
 })
+/**
+ * The Module creates, on application startup, the Language and registers it to the {@link ModellingManagerService}
+ */
 export class UmlClassDiagramModule {
 
   language: Language;
@@ -70,7 +73,7 @@ export class UmlClassDiagramModule {
         new UmlIsCompositionOf(),
         new UmlIsAggregationOf()
     ];
-    const settingsComponents = {
+    const settingsComponents: SettingComponentArray = {
       'uml_class': UmlClassSettingsComponent,
       'uml_association': UmlAssociationSettingsComponent,
       'uml_isCompositionOf': UmlIsCompositionOfSettingsComponent,

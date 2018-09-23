@@ -1,15 +1,18 @@
-import {Relation} from '../../core/classes/relation';
-import {Entity} from '../../core/classes/entity';
+import {AbstractRelation} from '../../core/classes/abstractRelation';
+import {AbstractEntity} from '../../core/classes/abstractEntity';
 import {SimpleCardinality} from '../../core/classes/cardinality';
 import {Variable} from '../../core/classes/variable';
 import {UmlClass} from '../entities/class';
 import * as go from 'gojs';
 
-export class UmlHasAttached implements Relation {
+/**
+ * This class represents a  UML Has Attached relation
+ */
+export class UmlHasAttached implements AbstractRelation {
     id: string;
     name: string;
     desciption: string;
-    cardinalities: [{ fromEntity: Entity; toEntity: Entity; cardinality: SimpleCardinality }];
+    cardinalities: [{ fromEntity: AbstractEntity; toEntity: AbstractEntity; cardinality: SimpleCardinality }];
     variables: Variable[];
 
     imagePath: string;

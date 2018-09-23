@@ -11,6 +11,9 @@ import {Router} from '@angular/router';
   templateUrl: './language.component.html',
   styleUrls: ['./language.component.scss']
 })
+/**
+ * This component represents a single language.
+ * */
 export class LanguageComponent implements OnInit {
   @Input() language: Language;
 
@@ -25,36 +28,47 @@ export class LanguageComponent implements OnInit {
   ngOnInit() {
   }
 
+    /**
+     * This function is being called if you press the load button
+     * */
     onClickLoad() {
+        // Opens the load dialog
         const dialogRef = this.dialog.open(LanguageLoadDialog, {
             data: { language: this.language},
         });
+
+        // Get the result of the load dialog when available via observable
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.loadingScreenService.updateLoadingScreenStatus(new LoadingStatusEvent(LoadingStatus.PENDING, null, 'load modell'));
+                // Activate Loading Screen
+                this.loadingScreenService.updateLoadingScreenStatus(new LoadingStatusEvent(LoadingStatus.PENDING, null, 'Preparing to load model'));
 
+                // Get the file and load it via FileReader
                 const file: File = result;
-                // console.log(result);
-                // let fileContent: string;
                 const reader = new FileReader();
+                this.loadingScreenService.updateLoadingScreenStatus(new LoadingStatusEvent(LoadingStatus.WORKING, null, 'Loading model file'));
                 reader.readAsText(file);
                 reader.onload = () => {
-                    // fileContent = reader.result;
+                    // When finished send the modelData to the modellingManager (The ModellingAreaComponent will look there for loaded data)
                     this.modellingManager.rawModelData = reader.result;
-                    // console.log(fileContent);
-                    setTimeout(() => {this.router.navigate(['/modelling', this.language.id]); }, 1000);
+                    /* Init change of route to modelling tool. Be sure to wait 0.5 sec
+                    (For small files the loading is so fast that the loading screen is only a yellow blink. That is very disturbing for the UX).
+                    (The LoadingScreen needs 400ms to build)
+                    */
+                    this.loadingScreenService.updateLoadingScreenStatus(new LoadingStatusEvent(LoadingStatus.WORKING, null, 'Loading modelling Language'));
+                    setTimeout(() => {this.router.navigate(['/modelling', this.language.id]); }, 500);
                 };
             }
         });
     }
 
+    /**
+     * This method is being called if you press the new button
+     * */
     onClickNew() {
-      this.loadingScreenService.updateLoadingScreenStatus(new LoadingStatusEvent(LoadingStatus.PENDING, null, 'Load modelling Language'));
-
-      setTimeout(() => (
-          this.loadingScreenService.updateLoadingScreenStatus(new LoadingStatusEvent(LoadingStatus.WORKING, null, 'Create new Model'))
-      ), 500);
-      setTimeout(() => {this.router.navigate(['/modelling', this.language.id]); }, 1000);
+      // init route change
+      this.loadingScreenService.updateLoadingScreenStatus(new LoadingStatusEvent(LoadingStatus.PENDING, null, 'Loading modelling Language'));
+      setTimeout(() => {this.router.navigate(['/modelling', this.language.id]); }, 500);
     }
 }
 
@@ -66,6 +80,9 @@ export interface DialogData {
     selector: 'app-language-load-dialog',
     templateUrl: 'language-load-dialog.html',
 })
+/**
+ * This is the Dialog that appears if you press load
+ * */
 export class LanguageLoadDialog {
 
     constructor(

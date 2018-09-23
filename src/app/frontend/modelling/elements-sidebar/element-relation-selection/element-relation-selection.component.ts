@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Relation} from '../../../../core/classes/relation';
+import {AbstractRelation} from '../../../../core/classes/abstractRelation';
 import {ModellingToolkitService} from '../../../../core/modelling-toolkit.service';
 import * as go from 'gojs';
 import {tokenReference} from '@angular/compiler';
@@ -35,9 +35,13 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
         ])
     ]
 })
+/**
+ * This component is the overlay that guides you through the creation of a relation. It is located directly in ElementsSidebarComponent
+ * See {@link ElementRelationSelectionComponent} and {@link ElementsSidebarComponent} if you want to know how the overlay is triggered
+ * */
 export class ElementRelationSelectionComponent implements OnInit {
   @Input()
-  element: Relation;
+  element: AbstractRelation;
 
   @Output()
   elementSelctionCompleted = new EventEmitter<RelationSelectionData>();
@@ -63,16 +67,21 @@ export class ElementRelationSelectionComponent implements OnInit {
     this.data = new class implements RelationSelectionData {
         fromEntity: any;
         toEntity: any;
-        relation: Relation;
+        relation: AbstractRelation;
     };
     this.data.relation = this.element;
+    // We want to be notified if the user selected a node in the modelling area
     this.modellingToolkit.modellingAreaComponent.diagram.addDiagramListener('ChangedSelection', (e) => {
           if (!e.diagram.selection.first()) { return; }
+          // The selected part should be a node
           if (!(e.diagram.selection.first() instanceof go.Node)) { return; }
+          // If the overlay isn't active do noting
           if (!this.isActive) { return; }
           const helper = new HelperFunctions();
+          // If you want to work with model data: Copy it
           const nodeData = helper.deepCopy(e.diagram.selection.first().data);
 
+          // Select two entities in succession
           if (!this.data.fromEntity) {
             this.data.fromEntity = nodeData.key;
             this.fromName = nodeData.uml_class_name;
@@ -87,7 +96,8 @@ export class ElementRelationSelectionComponent implements OnInit {
               this.errorMsg = returnValue.errorMsg;
           }
 
-          this.modellingToolkit.modellingAreaComponent.diagram.clearSelection();
+          // remove the selection after it has been processed
+          this.modellingToolkit.clearSelection();
     });
   }
 
@@ -99,7 +109,7 @@ export class ElementRelationSelectionComponent implements OnInit {
 
   submit() {
     this.isActive = false;
-    this.modellingToolkit.modellingAreaComponent.createLink(this.data);
+    this.modellingToolkit.createLink(this.data);
     this.elementSelctionCompleted.emit(this.data);
   }
 
@@ -112,5 +122,5 @@ export class ElementRelationSelectionComponent implements OnInit {
 export interface RelationSelectionData {
     fromEntity: any;
     toEntity: any;
-    relation: Relation;
+    relation: AbstractRelation;
 }

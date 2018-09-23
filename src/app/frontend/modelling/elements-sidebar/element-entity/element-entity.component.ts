@@ -1,7 +1,7 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {AbstractElement} from '../../../../core/classes/abstractElement';
-import {Entity} from '../../../../core/classes/entity';
-import {Relation} from '../../../../core/classes/relation';
+import {AbstractEntity} from '../../../../core/classes/abstractEntity';
+import {AbstractRelation} from '../../../../core/classes/abstractRelation';
 import {ElementType} from '../../../../core/classes/elementTypeEnum';
 
 @Component({
@@ -9,6 +9,10 @@ import {ElementType} from '../../../../core/classes/elementTypeEnum';
   templateUrl: './element-entity.component.html',
   styleUrls: ['./element-entity.component.scss']
 })
+/**
+ * This component receives a single Entity from the ElementsSidebarComponent and displays it.
+ * This component also starts the dragStart event to enable drag-and-drop integration with GoJS
+ * */
 export class ElementEntityComponent implements OnInit {
     @Input() element: AbstractElement;
 

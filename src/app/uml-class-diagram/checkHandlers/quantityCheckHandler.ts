@@ -1,9 +1,12 @@
 import {AbstractCheckHandler, CheckReturn} from '../../core/classes/abstractCheckHandler';
-import {Relation} from '../../core/classes/relation';
+import {AbstractRelation} from '../../core/classes/abstractRelation';
 import * as go from 'gojs';
 
+/**
+ * The QuaintityCheckHandler checks if a realation has exceeded the number if total occurrences between two entities
+ * */
 export class QuantityCheckHandler extends AbstractCheckHandler {
-    check(diagram: go.Diagram, relation: Relation, relationInstance: any): CheckReturn {
+    check(diagram: go.Diagram, relation: AbstractRelation, relationInstance: any): CheckReturn {
         const from: go.Node = diagram.findNodeForKey(relationInstance.from);
         const to: go.Node = diagram.findNodeForKey(relationInstance.to);
 
@@ -17,6 +20,7 @@ export class QuantityCheckHandler extends AbstractCheckHandler {
             to: relationInstance.to,
             category: relation.id
         };
+        // check for relations in the other direction
         const exampleDataReversed = {
             from: relationInstance.to,
             to: relationInstance.from,

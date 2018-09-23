@@ -7,16 +7,20 @@ import {ModellingToolkitService} from '../../../../core/modelling-toolkit.servic
 import {map, startWith} from 'rxjs/operators';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {DialogData} from '../../../language-selection/language/language.component';
-import {Relation} from '../../../../core/classes/relation';
+import {AbstractRelation} from '../../../../core/classes/abstractRelation';
 
 @Component({
   selector: 'app-element-relation',
   templateUrl: './element-relation.component.html',
   styleUrls: ['./element-relation.component.scss']
 })
+/**
+ * This component displays a single relation (received from ElementsSidebarComponent via Input) and displays it
+ * Also emits a event, when the relation is being clicked so the ElementsSidebarComponent can trigger the overlay
+ * */
 export class ElementRelationComponent implements OnInit {
-    @Input() element: Relation;
-    @Output() elementSelected = new EventEmitter<Relation>();
+    @Input() element: AbstractRelation;
+    @Output() elementSelected = new EventEmitter<AbstractRelation>();
 
 
     constructor() { }

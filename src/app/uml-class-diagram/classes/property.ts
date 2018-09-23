@@ -1,3 +1,6 @@
+/**
+ * This class represents a UML Class Attribute
+ * */
 export class UmlClassAttributes {
     uml_class_attributes_visibility: string;
     uml_class_attributes_name: string;

@@ -12,11 +12,21 @@ import {UmlIsCompositionOfInstance} from '../../relations/umlIsCompositionOf';
   templateUrl: './uml-is-composition-of-settings.component.html',
   styleUrls: ['./uml-is-composition-of-settings.component.scss']
 })
+/**
+ * This class represents the attributes of a UML Association relation
+ *
+ * The according data (linkData) is received by the {@link SettingsSidebarComponent}, including with a reference to itself.
+ * On initialization of the component the data is being cloned to linkData. Then the underlying data structure for the according relation is loaded.
+ * If the properties defined by the data structure are not present yet, they will be created when the sidebar is being submitted.
+ * Internally the uml_isCompositionOf_instance is created with a standard, empty structure, if no data could be loaded.
+ *
+ * The uml_isCompositionOf_instance is used to present the data to the user
+ */
 export class UmlIsCompositionOfSettingsComponent implements OnInit {
     data: any;
     parentComponent: SettingsSidebarComponent = this.modellingToolkit.settingSidebarComponent;
 
-    nodeData: any;
+    linkData: any;
     uml_isCompositionOf_instance: UmlIsCompositionOfInstance;
 
     @ViewChild('submitCompositionForm') button: MatButton;
@@ -24,17 +34,21 @@ export class UmlIsCompositionOfSettingsComponent implements OnInit {
         private modellingToolkit: ModellingToolkitService
     ) { }
 
+    /**
+     * Clones the data and creates the according data structure
+     * If there is no data, the fields will be created with an default (empty string, false or null)
+     */
     ngOnInit() {
         const helper = new HelperFunctions();
-        this.nodeData = helper.deepCopy(this.data);
+        this.linkData = helper.deepCopy(this.data);
         this.uml_isCompositionOf_instance = new UmlIsCompositionOfInstance(
-            this.nodeData.uml_isCompositionOf_name,
-            this.nodeData.uml_isCompositionOf_cardinality
+            this.linkData.uml_isCompositionOf_name,
+            this.linkData.uml_isCompositionOf_cardinality
         );
-        if (!this.nodeData.uml_isCompositionOf_name) {
+        if (!this.linkData.uml_isCompositionOf_name) {
             this.uml_isCompositionOf_instance.uml_isCompositionOf_name = '';
         }
-        if (!this.nodeData.uml_isCompositionOf_cardinality) {
+        if (!this.linkData.uml_isCompositionOf_cardinality) {
             this.uml_isCompositionOf_instance.uml_isCompositionOf_cardinality = new SimpleCardinality(
                 null,
                 {
@@ -45,23 +59,30 @@ export class UmlIsCompositionOfSettingsComponent implements OnInit {
         }
     }
 
+    /**
+     * If the form is submitted the data in the structure will be written back to the model an the changes will appear
+     *
+     *
+     * Remember that the data needs to be a copy and not the real model data!
+     */
     onSubmit() {
-        const diagram = this.modellingToolkit.modellingAreaComponent.diagram;
-        const link: go.Link = diagram.findLinksByExample(this.nodeData).first();
+        const link: go.Link = this.modellingToolkit.findLinksByExample(this.linkData).first();
         const linkData = link.data;
-        diagram.startTransaction('update link:' + this.nodeData.key);
-        diagram.model.setDataProperty(linkData, 'uml_isCompositionOf_name', this.uml_isCompositionOf_instance.uml_isCompositionOf_name);
-        diagram.model.setDataProperty(linkData, 'uml_isCompositionOf_cardinality', this.uml_isCompositionOf_instance.uml_isCompositionOf_cardinality);
-        diagram.commitTransaction('update link:' + this.nodeData.key);
+        this.modellingToolkit.startTransaction('update link', this.linkData.key);
+        this.modellingToolkit.setDataProperty(linkData, 'uml_isCompositionOf_name', this.uml_isCompositionOf_instance.uml_isCompositionOf_name);
+        this.modellingToolkit.setDataProperty(linkData, 'uml_isCompositionOf_cardinality', this.uml_isCompositionOf_instance.uml_isCompositionOf_cardinality);
+        this.modellingToolkit.commitTransaction('update link', this.linkData.key);
         this.parentComponent.close();
     }
 
+    /**
+     * Deletes the relation
+     */
     public delete(): void {
-        const diagram = this.modellingToolkit.modellingAreaComponent.diagram;
-        const links = diagram.findLinksByExample(this.nodeData);
-        diagram.startTransaction('remove link from ' + this.nodeData.from + ' to ' + this.nodeData.to + ' with id ' + this.nodeData.key);
-        diagram.removeParts(links, false);
-        diagram.commitTransaction('remove link from ' + this.nodeData.from + ' to ' + this.nodeData.to + ' with id ' + this.nodeData.key);
+        const links = this.modellingToolkit.findLinksByExample(this.linkData);
+        this.modellingToolkit.startTransaction('remove link', this.linkData.key, this.linkData.from, this.linkData.to);
+        this.modellingToolkit.removeParts(links);
+        this.modellingToolkit.commitTransaction('remove link', this.linkData.key, this.linkData.from, this.linkData.to);
         this.parentComponent.close();
     }
 

@@ -1,15 +1,18 @@
-import {Relation} from '../../core/classes/relation';
-import {Entity} from '../../core/classes/entity';
+import {AbstractRelation} from '../../core/classes/abstractRelation';
+import {AbstractEntity} from '../../core/classes/abstractEntity';
 import {SimpleCardinality} from '../../core/classes/cardinality';
 import {Variable} from '../../core/classes/variable';
 import * as go from 'gojs';
 import {UmlClass} from '../entities/class';
 
-export class UmlIsCompositionOf implements Relation {
+/**
+ * This class represents a UML Is Composition Of relation
+ */
+export class UmlIsCompositionOf implements AbstractRelation {
     id: string;
     name: string;
     desciption: string;
-    cardinalities: [{ fromEntity: Entity; toEntity: Entity; cardinality: SimpleCardinality }];
+    cardinalities: [{ fromEntity: AbstractEntity; toEntity: AbstractEntity; cardinality: SimpleCardinality }];
     variables: Variable[];
 
     imagePath: string;

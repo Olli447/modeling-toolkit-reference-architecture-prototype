@@ -1,15 +1,18 @@
-import {Relation, RelationInstance} from '../../core/classes/relation';
-import {Entity} from '../../core/classes/entity';
+import {AbstractRelation, RelationInstance} from '../../core/classes/abstractRelation';
+import {AbstractEntity} from '../../core/classes/abstractEntity';
 import {SimpleCardinality} from '../../core/classes/cardinality';
 import {Variable} from '../../core/classes/variable';
 import {UmlClass} from '../entities/class';
 import * as go from 'gojs';
 
-export class UmlAssociation implements Relation {
+/**
+ * This class represents a UML Association relation
+ */
+export class UmlAssociation implements AbstractRelation {
     id: string;
     name: string;
     desciption: string;
-    cardinalities: [{ fromEntity: Entity; toEntity: Entity; cardinality: SimpleCardinality }];
+    cardinalities: [{ fromEntity: AbstractEntity; toEntity: AbstractEntity; cardinality: SimpleCardinality }];
     variables: Variable[];
 
     imagePath: string;

@@ -1,10 +1,13 @@
-import {Entity, EntityInstance} from '../../core/classes/entity';
+import {AbstractEntity, EntityInstance} from '../../core/classes/abstractEntity';
 import {Variable, VariableType} from '../../core/classes/variable';
 import * as go from 'gojs';
 import {UmlClassOperations} from '../classes/operation';
 import {UmlClassAttributes} from '../classes/property';
 
-export class UmlClass implements Entity {
+/**
+ * This class represents a UML Class
+ * */
+export class UmlClass implements AbstractEntity {
     id: string;
     name: string;
     variables: Variable[];

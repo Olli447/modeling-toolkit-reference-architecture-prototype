@@ -1,9 +1,14 @@
+/**Provides helpfull functions that are needed in several situations*/
 export class HelperFunctions {
+
+    /**This method takes an object as argument an returns an completely cloned object
+     * @param obj - object that needs to be cloned
+     * @return clonedObject cloned object*/
     deepCopy(obj) {
         let copy;
 
         // Handle the 3 simple types, and null or undefined
-        if (null == obj || 'object' != typeof obj) {
+        if (null == obj || 'object' !== typeof obj) {
             return obj;
         }
 
@@ -26,7 +31,7 @@ export class HelperFunctions {
         // Handle Object
         if (obj instanceof Object) {
             copy = {};
-            for (let attr in obj) {
+            for (const attr in obj) {
                 if (obj.hasOwnProperty(attr)) { copy[attr] = this.deepCopy(obj[attr]); }
             }
             return copy;

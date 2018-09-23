@@ -13,11 +13,21 @@ import * as go from 'gojs';
   templateUrl: './uml-association-settings.component.html',
   styleUrls: ['./uml-association-settings.component.scss']
 })
+/**
+ * This class represents the attributes of a UML Association relation
+ *
+ * The according data (linkData) is received by the {@link SettingsSidebarComponent}, including with a reference to itself.
+ * On initialization of the component the data is being cloned to linkData. Then the underlying data structure for the according relation is loaded.
+ * If the properties defined by the data structure are not present yet, they will be created when the sidebar is being submitted.
+ * Internally the uml_association_instance is created with a standard, empty structure, if no data could be loaded.
+ *
+ * The uml_association_instance is used to present the data to the user
+ */
 export class UmlAssociationSettingsComponent implements OnInit, SettingComponent {
     data: any;
     parentComponent: SettingsSidebarComponent = this.modellingToolkit.settingSidebarComponent;
 
-    nodeData: any;
+    linkData: any;
     uml_association_instance: UmlAssociationInstance;
 
     @ViewChild('submitAssociationForm') button: MatButton;
@@ -25,29 +35,33 @@ export class UmlAssociationSettingsComponent implements OnInit, SettingComponent
         private modellingToolkit: ModellingToolkitService
     ) { }
 
+    /**
+     * Clones the data and creates the according data structure
+     * If there is no data, the fields will be created with an default (empty string, false or null)
+     */
     ngOnInit() {
       const helper = new HelperFunctions();
-      this.nodeData = helper.deepCopy(this.data);
+      this.linkData = helper.deepCopy(this.data);
       this.uml_association_instance = new UmlAssociationInstance(
-          this.nodeData.uml_association_name,
-          this.nodeData.uml_association_isDerived,
-          this.nodeData.uml_association_visibility,
-          this.nodeData.uml_association_readingDirectionIsRight,
-          this.nodeData.uml_association_cardinality
+          this.linkData.uml_association_name,
+          this.linkData.uml_association_isDerived,
+          this.linkData.uml_association_visibility,
+          this.linkData.uml_association_readingDirectionIsRight,
+          this.linkData.uml_association_cardinality
       );
-      if (!this.nodeData.uml_association_name) {
+      if (!this.linkData.uml_association_name) {
         this.uml_association_instance.uml_association_name = '';
       }
-      if (!this.nodeData.uml_association_isDerived) {
+      if (!this.linkData.uml_association_isDerived) {
         this.uml_association_instance.uml_association_isDerived = false;
       }
-      if (!this.nodeData.uml_association_visibility) {
+      if (!this.linkData.uml_association_visibility) {
         this.uml_association_instance.uml_association_visibility = '';
       }
-      if (!this.nodeData.uml_association_readingDirectionIsRight) {
+      if (!this.linkData.uml_association_readingDirectionIsRight) {
         this.uml_association_instance.uml_association_readingDirectionIsRight = false;
       }
-      if (!this.nodeData.uml_association_cardinality) {
+      if (!this.linkData.uml_association_cardinality) {
         this.uml_association_instance.uml_association_cardinality = new SimpleCardinality(
               {
                   min: '',
@@ -60,30 +74,38 @@ export class UmlAssociationSettingsComponent implements OnInit, SettingComponent
       }
     }
 
+    /**
+     * If the form is submitted the data in the structure will be written back to the model an the changes will appear
+     *
+     *
+     * Remember that the data needs to be a copy and not the real model data!
+     */
     onSubmit() {
-        const diagram = this.modellingToolkit.modellingAreaComponent.diagram;
-        const link: go.Link = diagram.findLinksByExample(this.nodeData).first();
+        const link: go.Link = this.modellingToolkit.findLinksByExample(this.linkData).first();
         const linkData = link.data;
-        diagram.startTransaction('update link:' + this.nodeData.key);
-        diagram.model.setDataProperty(linkData, 'uml_association_name', this.uml_association_instance.uml_association_name);
-        diagram.model.setDataProperty(linkData, 'uml_association_isDerived', this.uml_association_instance.uml_association_isDerived);
-        diagram.model.setDataProperty(linkData, 'uml_association_visibility', this.uml_association_instance.uml_association_visibility);
-        diagram.model.setDataProperty(linkData,
+        this.modellingToolkit.startTransaction('update link', this.linkData.key);
+        this.modellingToolkit.setDataProperty(linkData, 'uml_association_name', this.uml_association_instance.uml_association_name);
+        this.modellingToolkit.setDataProperty(linkData, 'uml_association_isDerived', this.uml_association_instance.uml_association_isDerived);
+        this.modellingToolkit.setDataProperty(linkData, 'uml_association_visibility', this.uml_association_instance.uml_association_visibility);
+        this.modellingToolkit.setDataProperty(linkData,
             'uml_association_readingDirectionIsRight',
             this.uml_association_instance.uml_association_readingDirectionIsRight
         );
-        diagram.model.setDataProperty(linkData, 'uml_association_cardinality', this.uml_association_instance.uml_association_cardinality);
+        this.modellingToolkit.setDataProperty(linkData, 'uml_association_cardinality', this.uml_association_instance.uml_association_cardinality);
 
-        diagram.commitTransaction('update link:' + this.nodeData.key);
+        this.modellingToolkit.commitTransaction('update link', this.linkData.key);
+        // close the sidebar when done
         this.parentComponent.close();
     }
 
+    /**
+     * Deletes the relation
+     */
     public delete(): void {
-        const diagram = this.modellingToolkit.modellingAreaComponent.diagram;
-        const links = diagram.findLinksByExample(this.nodeData);
-        diagram.startTransaction('remove link from ' + this.nodeData.from + ' to ' + this.nodeData.to + ' with id ' + this.nodeData.key);
-        diagram.removeParts(links, false);
-        diagram.commitTransaction('remove link from ' + this.nodeData.from + ' to ' + this.nodeData.to + ' with id ' + this.nodeData.key);
+        const links = this.modellingToolkit.findLinksByExample(this.linkData);
+        this.modellingToolkit.startTransaction('remove link', this.linkData.key,  this.linkData.from, this.linkData.to);
+        this.modellingToolkit.removeParts(links);
+        this.modellingToolkit.commitTransaction('remove link', this.linkData.key,  this.linkData.from, this.linkData.to);
         this.parentComponent.close();
     }
 }

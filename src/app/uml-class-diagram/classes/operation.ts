@@ -1,3 +1,6 @@
+/**
+ * This class represents a Operation of a UML Class
+ * */
 export class UmlClassOperations {
     uml_class_operations_visibility: string;
     uml_class_operations_name: string;
@@ -14,6 +17,9 @@ export class UmlClassOperations {
     }
 }
 
+/**
+ * This class represents a UML Class Operation Parameter
+ * */
 export class UmlClassOperationsParameters {
     uml_class_operations_parameters_name: string;
     uml_class_operations_parameters_type: string;

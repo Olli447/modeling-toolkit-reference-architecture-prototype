@@ -50,7 +50,7 @@ export class LanguageComponent implements OnInit {
                 reader.readAsText(file);
                 reader.onload = () => {
                     // When finished send the modelData to the modellingManager (The ModellingAreaComponent will look there for loaded data)
-                    this.modellingManager.rawModelData = reader.result;
+                    this.modellingManager.rawModelData = reader.result.toString();
                     /* Init change of route to modelling tool. Be sure to wait 0.5 sec
                     (For small files the loading is so fast that the loading screen is only a yellow blink. That is very disturbing for the UX).
                     (The LoadingScreen needs 400ms to build)

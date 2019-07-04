@@ -29,7 +29,7 @@ export class UmlIsCompositionOfSettingsComponent implements OnInit {
     linkData: any;
     uml_isCompositionOf_instance: UmlIsCompositionOfInstance;
 
-    @ViewChild('submitCompositionForm') button: MatButton;
+    @ViewChild('submitCompositionForm', { static: true }) button: MatButton;
     constructor(
         private modellingToolkit: ModellingToolkitService
     ) { }

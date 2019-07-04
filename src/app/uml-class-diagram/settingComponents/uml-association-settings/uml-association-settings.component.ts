@@ -30,7 +30,7 @@ export class UmlAssociationSettingsComponent implements OnInit, SettingComponent
     linkData: any;
     uml_association_instance: UmlAssociationInstance;
 
-    @ViewChild('submitAssociationForm') button: MatButton;
+    @ViewChild('submitAssociationForm', { static: true }) button: MatButton;
     constructor(
         private modellingToolkit: ModellingToolkitService
     ) { }

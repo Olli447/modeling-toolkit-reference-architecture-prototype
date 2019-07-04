@@ -21,7 +21,7 @@ import {RelationSelectionData} from '../elements-sidebar/element-relation-select
  * */
 export class ModellingAreaComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  @ViewChild('diagramDiv')
+  @ViewChild('diagramDiv', { static: true })
   private diagramRef: ElementRef;
   public diagram: go.Diagram = new go.Diagram();
 

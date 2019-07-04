@@ -29,7 +29,7 @@ export class UmlIsAggregationOfSettingsComponent implements OnInit {
     linkData: any;
     uml_isAggregationOf_instance: UmlIsAggregationOfInstance;
 
-    @ViewChild('submitAggregationForm') button: MatButton;
+    @ViewChild('submitAggregationForm', { static: true }) button: MatButton;
     constructor(
         private modellingToolkit: ModellingToolkitService
     ) { }

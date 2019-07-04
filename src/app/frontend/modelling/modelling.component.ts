@@ -11,7 +11,7 @@ import {ModellingToolkitService} from '../../core/modelling-toolkit.service';
 })
 export class ModellingComponent implements OnInit {
 
-  @ViewChild('settings')
+  @ViewChild('settings', { static: true })
   public settingsSidebar: MatSidenav;
 
   constructor(private modellingToolkit: ModellingToolkitService) { }

@@ -30,7 +30,7 @@ export class UmlClassSettingsComponent implements OnInit, SettingComponent, Afte
   nodedata: any;
   uml_class_instance: UmlClassInstance;
 
-  @ViewChild('submitClassForm') button: MatButton;
+  @ViewChild('submitClassForm', { static: true }) button: MatButton;
 
   ngAfterViewInit() {
       this.button.focus();

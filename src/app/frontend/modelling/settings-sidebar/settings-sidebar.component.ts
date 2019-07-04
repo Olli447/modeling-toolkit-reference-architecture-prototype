@@ -24,7 +24,7 @@ export class SettingsSidebarComponent implements OnInit, OnDestroy {
   settingComponents: { [key: string ]: Type<any> ; };
 
   // The SettingsDirective enables us to dynamically load components
-  @ViewChild(SettingsDirective)
+  @ViewChild(SettingsDirective, { static: true })
   settingHost: SettingsDirective;
 
   // needed to open and close the sidebar

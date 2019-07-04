@@ -3,7 +3,7 @@ import {SettingComponent, SettingItem} from '../../../core/classes/settingItem';
 import {UmlClassInstance} from '../../entities/class';
 import {ModellingToolkitService} from '../../../core/modelling-toolkit.service';
 import {SettingsSidebarComponent} from '../../../frontend/modelling/settings-sidebar/settings-sidebar.component';
-import {MatButton} from '@angular/material';
+import { MatButton } from '@angular/material/button';
 import {UmlClassAttributes} from '../../classes/property';
 import {UmlClassOperations, UmlClassOperationsParameters} from '../../classes/operation';
 import {HelperFunctions} from '../../../core/classes/helperFunctions';

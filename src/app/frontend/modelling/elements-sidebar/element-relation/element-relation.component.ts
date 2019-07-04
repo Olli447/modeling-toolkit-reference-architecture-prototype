@@ -5,7 +5,7 @@ import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs/internal/Observable';
 import {ModellingToolkitService} from '../../../../core/modelling-toolkit.service';
 import {map, startWith} from 'rxjs/operators';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import {DialogData} from '../../../language-selection/language/language.component';
 import {AbstractRelation} from '../../../../core/classes/abstractRelation';
 

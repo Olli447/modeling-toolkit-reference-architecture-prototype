@@ -1,7 +1,7 @@
 import {Component, HostListener, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import * as go from 'gojs';
 import {settings} from 'cluster';
-import {MatSidenav} from '@angular/material';
+import { MatSidenav } from '@angular/material/sidenav';
 import {ModellingToolkitService} from '../../core/modelling-toolkit.service';
 
 @Component({

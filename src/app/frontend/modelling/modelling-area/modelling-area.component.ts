@@ -5,7 +5,6 @@ import {LoadingScreenService} from '../../../service/loading-screen.service';
 import {ModellingManagerService} from '../../../core/modelling-manager.service';
 import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
 import {Observable} from 'rxjs/internal/Observable';
-import {forEach} from '@angular/router/src/utils/collection';
 import {ModellingToolkitService} from '../../../core/modelling-toolkit.service';
 import {AbstractEntity} from '../../../core/classes/abstractEntity';
 import {ElementType} from '../../../core/classes/elementTypeEnum';

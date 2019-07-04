@@ -5,8 +5,8 @@ import {Subscription} from 'rxjs/internal/Subscription';
 import * as go from 'gojs';
 import {Language} from '../../../core/classes/language';
 import {SettingComponent} from '../../../core/classes/settingItem';
-import {MatSidenav, MatSnackBar} from '@angular/material';
-import {error} from 'util';
+import { MatSidenav } from '@angular/material/sidenav';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-settings-sidebar',

@@ -4,15 +4,21 @@ import {ModellingManagerService} from '../core/modelling-manager.service';
 import {Language, SettingComponentArray} from '../core/classes/language';
 import {UmlClass} from './entities/class';
 import { UmlClassSettingsComponent } from './settingComponents/uml-class-settings/uml-class-settings.component';
-import {
-    MatButtonModule,
-    MatCardModule, MatCheckboxModule, MatDialogModule, MatDividerModule,
-    MatFormFieldModule,
-    MatGridListModule, MatIconModule, MatInputModule,
-    MatMenuModule, MatProgressBarModule,
-    MatSelectModule, MatSidenavModule,
-    MatToolbarModule, MatTooltipModule
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LayoutModule} from '@angular/cdk/layout';

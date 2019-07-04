@@ -1,7 +1,7 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import {Language} from '../../../core/classes/language';
 import {LoadingScreenService} from '../../../service/loading-screen.service';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import {LoadingStatus, LoadingStatusEvent} from '../../../core/classes/loadingStatusEvent';
 import {ModellingManagerService} from '../../../core/modelling-manager.service';
 import {Router} from '@angular/router';

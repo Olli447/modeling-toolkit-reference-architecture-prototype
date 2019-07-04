@@ -8,7 +8,7 @@ import {AbstractRelation, RelationInstance} from './classes/abstractRelation';
 import {ModellingAreaComponent} from '../frontend/modelling/modelling-area/modelling-area.component';
 import {SettingsSidebarComponent} from '../frontend/modelling/settings-sidebar/settings-sidebar.component';
 import {ContentCheckManagerService} from './content-check-manager.service';
-import { saveAs } from 'file-saver/FileSaver';
+import { saveAs } from 'file-saver';
 import {Iterable, Iterator, Link, Part} from 'gojs';
 
 @Injectable({

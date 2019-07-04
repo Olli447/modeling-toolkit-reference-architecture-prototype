@@ -3,7 +3,6 @@ import {AbstractRelation} from './abstractRelation';
 import {UmlClassSettingsComponent} from '../../uml-class-diagram/settingComponents/uml-class-settings/uml-class-settings.component';
 import {Type} from '@angular/core';
 import {AbstractCheckHandler, CheckHandlerArray} from './abstractCheckHandler';
-import {Component} from '@angular/core/src/metadata/directives';
 
 /**This class provides the structure for a modelling language.
  *
@@ -18,8 +17,10 @@ import {Component} from '@angular/core/src/metadata/directives';
  * The following attributes in the second group are used in the modelling tool:
  * - entities: Array that contains all entities of the language. The classes must implement AbstractEntity
  * - relations: Array that contains all relations of the language. The classes must implement AbstractRelation
- * - settingComponents: Object that contains all Components for entities and relations that need attributes. The object works like a dictionary where the key is the unique id of the entity/relation they belong to
- * - checkHandlerArray: Object that works as a Dictionary. The key is the unique id of the entity/relation. The value is an array that consists of CheckHandlers (these will be called in order)*/
+ * - settingComponents: Object that contains all Components for entities and relations that need attributes.
+ *                      The object works like a dictionary where the key is the unique id of the entity/relation they belong to
+ * - checkHandlerArray: Object that works as a Dictionary. The key is the unique id of the entity/relation.
+ *                      The value is an array that consists of CheckHandlers (these will be called in order)*/
 export class Language {
     id: string;
     name: string;

@@ -10,5 +10,10 @@
                     [language] = "language">
 
       </app-language>
+      <app-collaborative-selection class="language"
+                    *ngFor="let collaboration of collaborativeModels"
+                    [collaboration] = "collaboration">
+
+      </app-collaborative-selection>
 </div>
 

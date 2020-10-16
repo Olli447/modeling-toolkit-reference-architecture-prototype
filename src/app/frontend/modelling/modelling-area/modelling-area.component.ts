@@ -106,6 +106,12 @@ export class ModellingAreaComponent implements OnInit, OnDestroy, AfterViewInit 
             // When loaded set the language
             this.languageID = params['id'];
             this.modellingToolkit.setLanguage(this.languageID);
+            this.route.queryParams.subscribe(queryParams => {
+              const collaboration = queryParams['collaboration'];
+              if (this.modellingToolkit.currentModelID === undefined || collaboration !== this.modellingToolkit.currentModelID) {
+                this.modellingToolkit.generateModelID(collaboration);
+              }
+            });
 
 
             this.loadingScreenService.updateLoadingScreenStatus(new LoadingStatusEvent(LoadingStatus.PENDING, null, 'Creating new model'));

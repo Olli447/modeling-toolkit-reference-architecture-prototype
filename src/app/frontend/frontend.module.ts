@@ -34,6 +34,7 @@ import { ElementEntityComponent } from './modelling/elements-sidebar/element-ent
 import {ElementRelationComponent} from './modelling/elements-sidebar/element-relation/element-relation.component';
 import { SettingsDirective } from './modelling/settings-sidebar/settings.directive';
 import { ElementRelationSelectionComponent } from './modelling/elements-sidebar/element-relation-selection/element-relation-selection.component';
+import { CollaborativeSelectionComponent } from './language-selection/collaborative-selection/collaborative-selection.component';
 
 @NgModule({
   imports: [
@@ -78,6 +79,7 @@ import { ElementRelationSelectionComponent } from './modelling/elements-sidebar/
       ElementRelationComponent,
       SettingsDirective,
       ElementRelationSelectionComponent,
+      CollaborativeSelectionComponent,
   ],
   entryComponents: [LanguageLoadDialog],
   exports: [LoadingScreenComponent],

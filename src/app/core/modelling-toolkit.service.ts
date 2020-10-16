@@ -10,6 +10,8 @@ import {SettingsSidebarComponent} from '../frontend/modelling/settings-sidebar/s
 import {ContentCheckManagerService} from './content-check-manager.service';
 import { saveAs } from 'file-saver';
 import {Iterable, Iterator, Link, Part} from 'gojs';
+import {ActivatedRoute, Router} from '@angular/router';
+import {SocketService} from './socket.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +30,10 @@ export class ModellingToolkitService {
   public currentLanguageID: string;
   private  currentLanguageSource: Subject<Language> = new Subject<Language>();
   currentLanguage$ = this.currentLanguageSource.asObservable();
+
+  public currentModelID: string;
+  private  currentModelSource: Subject<string> = new Subject<string>();
+  currentModel$ = this.currentLanguageSource.asObservable();
 
   private  nodeSelectedSource: Subject<any> = new Subject<any>();
   nodeSelected$ = this.nodeSelectedSource.asObservable();
@@ -48,7 +54,10 @@ export class ModellingToolkitService {
 
   constructor(
       private modellingManager: ModellingManagerService,
-      private contentCheckManager: ContentCheckManagerService
+      private contentCheckManager: ContentCheckManagerService,
+      private socket: SocketService,
+      private route: ActivatedRoute,
+      private router: Router
   ) { }
 
     /**
@@ -210,48 +219,71 @@ export class ModellingToolkitService {
         this.contentCheckManager.diagram = this.modellingAreaComponent.diagram;
     }
 
-    /**
+    generateModelID(id: string) {
+      if (id) {
+        this.currentModelID = id;
+        this.socket.joinModelling(id, this.currentLanguageID);
+      } else {
+        this.currentModelID = this.uuidv4();
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { collaboration: this.currentModelID },
+          queryParamsHandling: 'merge'
+        });
+        this.socket.addModel(this.currentModelID, this.currentLanguageID);
+      }
+      this.currentModelSource.next(this.currentModelID);
+    }
+  /**
      * This method emits an nodeSelected event
      * */
     nodeSelected(node: any) {
         this.nodeSelectedSource.next(node);
     }
-    /**
+  /**
      * This method emits an linkSelected event
      * */
     linkSelected(link: any) {
         this.linkSelectedSource.next(link);
     }
+
     /**
      * This method emits an partUnselected event
      * */
     partUnselected() {
         this.partUnselectedSource.next(null);
     }
-
-    /**
+  /**
      * This method emits an linkCreated event
      * */
     linkCreated(link: any) {
         this.linkCreatedSource.next(link);
     }
+
     /**
      * This method emits an linkDeleted event
      * */
     linkDeleted(link: any) {
         this.linkDeletedSource.next(link);
     }
-
-    /**
+  /**
      * This method emits an nodeCreated event
      * */
     nodeCreated(node: any) {
         this.nodeCreatedSource.next(node);
     }
+
     /**
      * This method emits an nodeDeleted event
      * */
     nodeDeleted(node: any) {
         this.nodeDeletedSource.next(node);
     }
+
+    uuidv4() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+  }
 }

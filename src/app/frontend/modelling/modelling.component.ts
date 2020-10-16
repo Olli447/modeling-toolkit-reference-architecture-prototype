@@ -3,6 +3,7 @@ import * as go from 'gojs';
 import {settings} from 'cluster';
 import { MatSidenav } from '@angular/material/sidenav';
 import {ModellingToolkitService} from '../../core/modelling-toolkit.service';
+import {SocketService} from '../../core/socket.service';
 
 @Component({
   selector: 'app-modelling',
@@ -14,7 +15,10 @@ export class ModellingComponent implements OnInit {
   @ViewChild('settings', { static: true })
   public settingsSidebar: MatSidenav;
 
-  constructor(private modellingToolkit: ModellingToolkitService) { }
+  constructor(
+    private modellingToolkit: ModellingToolkitService,
+    private socketService: SocketService
+  ) { }
 
   ngOnInit() {
   }

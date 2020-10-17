@@ -1,0 +1,39 @@
+.message-viewport {
+  width: 100%;
+  height: 20vh;
+  overflow-y: auto;
+  border-color: #ECECEC;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.message-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.user {
+  font-size: 80%;
+  padding-right: 5px;
+}
+p {
+  margin-bottom: 0;
+}
+
+.message {
+  font-size: 80%;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input {
+  flex-grow: 1;
+}
+.input > mat-form-field {
+  width: 100%;
+}

@@ -1,0 +1,38 @@
+<mat-expansion-panel (opened)="onPanelOpened()"
+                     (closed)="onPanelClosed()">
+  <mat-expansion-panel-header [expandedHeight]="'45px'">
+    <mat-panel-title>
+      <mat-icon>chat</mat-icon>
+    </mat-panel-title>
+    <mat-panel-description>
+      {{notification}}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+    <div #chatWindow class="message-viewport">
+      <div *ngFor="let message of messages" class="message-container">
+          <div class="user">
+            <p>{{message.uuid.length >6 ? message.uuid.substring(0,6)+'...' : message.uuid}}:</p>
+          </div>
+          <div class="message">
+            <p>{{message.message}}</p>
+          </div>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="input">
+        <mat-form-field class="example-form-field">
+          <mat-label>Message</mat-label>
+          <input matInput type="text" [(ngModel)]="newMessage">
+          <button mat-button *ngIf="newMessage" matSuffix mat-icon-button aria-label="Clear" (click)="newMessage=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-icon-button color="primary" aria-label="Send message" (click)="onNewMessage()">
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+    </div>
+</mat-expansion-panel>

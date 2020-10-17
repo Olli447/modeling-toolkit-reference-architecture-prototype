@@ -34,7 +34,11 @@ import { ElementEntityComponent } from './modelling/elements-sidebar/element-ent
 import {ElementRelationComponent} from './modelling/elements-sidebar/element-relation/element-relation.component';
 import { SettingsDirective } from './modelling/settings-sidebar/settings.directive';
 import { ElementRelationSelectionComponent } from './modelling/elements-sidebar/element-relation-selection/element-relation-selection.component';
-import { CollaborativeSelectionComponent } from './language-selection/collaborative-selection/collaborative-selection.component';
+import { CollaborativeSelectionComponent} from './language-selection/collaborative-selection/collaborative-selection.component';
+import { ChatWindowComponent } from './modelling/chat-window/chat-window.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatListModule} from '@angular/material/list';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 @NgModule({
   imports: [
@@ -61,7 +65,10 @@ import { CollaborativeSelectionComponent } from './language-selection/collaborat
     LayoutModule,
     MatFormFieldModule,
     MatAutocompleteModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatExpansionModule,
+    MatListModule,
+    ScrollingModule,
   ],
   declarations: [
       LanguageSelectionComponent,
@@ -80,6 +87,7 @@ import { CollaborativeSelectionComponent } from './language-selection/collaborat
       SettingsDirective,
       ElementRelationSelectionComponent,
       CollaborativeSelectionComponent,
+      ChatWindowComponent
   ],
   entryComponents: [LanguageLoadDialog],
   exports: [LoadingScreenComponent],

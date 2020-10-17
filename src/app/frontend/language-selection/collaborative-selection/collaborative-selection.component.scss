@@ -1,0 +1,30 @@
+.collaborative-card {
+  width: 300px;
+  max-width: 400px;
+}
+
+.language-acronym {
+  width: 98%;
+  margin: auto;
+  padding-top: 30px;
+  padding-bottom: 40px;
+  margin-bottom: 10px;
+
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  border-color: gray;
+  background-color: gray;
+
+  box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: center;
+}
+mat-card-actions > button {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+

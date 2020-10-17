@@ -16,7 +16,10 @@ export class LanguageSelectionComponent implements OnInit {
   constructor(public modellingManager: ModellingManagerService,
               private socket: SocketService) {
       this.languages = modellingManager.languages;
-      this.collaborativeModels = socket.modelsAvailable;
+      this.socket.modelsAvailable$.subscribe(value => {
+        this.collaborativeModels = value;
+      });
+
   }
 
     ngOnInit() {

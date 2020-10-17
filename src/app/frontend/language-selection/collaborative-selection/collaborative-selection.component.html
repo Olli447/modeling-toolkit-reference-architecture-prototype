@@ -1,1 +1,20 @@
-<p>collaborative-selection works!</p>
+<mat-card class="collaborative-card">
+  <mat-card-header>
+    <mat-card-title>Collaborative Modelling</mat-card-title>
+    <mat-card-subtitle>{{collaboration.language.name}}</mat-card-subtitle>
+    <mat-card-subtitle>{{collaboration.modelID}}</mat-card-subtitle>
+  </mat-card-header>
+  <!--<img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
+  <svg *ngIf="collaboration.language.acronym;" mat-card-image class="language-acronym" viewBox="0 0 56 18">
+    <text x="28" y="15" text-anchor="middle" fill="white">{{collaboration.language.acronym}}</text>
+  </svg>
+  <mat-card-content>
+    <p>
+      {{collaboration.language.description}}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button (click)="onClickLoad()" mat-stroked-button>Load</button>
+  </mat-card-actions>
+</mat-card>
+

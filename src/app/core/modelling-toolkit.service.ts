@@ -8,10 +8,8 @@ import {AbstractRelation, RelationInstance} from './classes/abstractRelation';
 import {ModellingAreaComponent} from '../frontend/modelling/modelling-area/modelling-area.component';
 import {SettingsSidebarComponent} from '../frontend/modelling/settings-sidebar/settings-sidebar.component';
 import {ContentCheckManagerService} from './content-check-manager.service';
-import { saveAs } from 'file-saver';
-import {Iterable, Iterator, Link, Part} from 'gojs';
+import {ChangedEvent, Iterable, Iterator, Link, Part} from 'gojs';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SocketService} from './socket.service';
 
 @Injectable({
   providedIn: 'root'
@@ -52,53 +50,20 @@ export class ModellingToolkitService {
   private nodeDeletedSource: Subject<any> = new Subject<any>();
   nodeDeleted$ = this.nodeDeletedSource.asObservable();
 
+  private readyToCreateModelSource: Subject<any> = new Subject<any>();
+  readyToCreateModel$ = this.readyToCreateModelSource.asObservable();
+  private readyToJoinModelSource: Subject<any> = new Subject<any>();
+  readyToJoinModel$ = this.readyToJoinModelSource.asObservable();
+
+  private modelChangedSource: Subject<any> = new Subject<any>();
+  modelChanged$ = this.modelChangedSource.asObservable();
+
   constructor(
       private modellingManager: ModellingManagerService,
       private contentCheckManager: ContentCheckManagerService,
-      private socket: SocketService,
       private route: ActivatedRoute,
       private router: Router
   ) { }
-
-    /**
-     * Exports the model as a JPEG image
-     * */
-    exportModel() {
-        const image = this.modellingAreaComponent.diagram.makeImageData({
-            scale: 1,
-            background: 'White',
-            type: 'image/jpeg',
-        });
-        const date = new Date();
-        const fileName = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear() + ' - ' + this.currentLanguageID + '.jpeg';
-
-        // In order to download the image you need to do a workaround, because saveAs dont work  with dataUrl's
-        // create an link with the download attribute and the dataUrl as ref set
-        const link = document.createElement('a');
-        link.download = fileName;
-        link.href = <string>image;
-        // append that link to the site
-        document.body.appendChild(link);
-        // click the link
-        link.click();
-        // delete the link
-        document.body.removeChild(link);
-
-        // Don't ask me ... it works
-    }
-
-    /**
-     * Uses GoJS to create an JSON representation of the model.
-     * Creates a file with the json as content and offers it to download it
-     * */
-    saveModel() {
-        const modelData = this.modellingAreaComponent.diagram.model.toJson();
-        const date = new Date();
-        const fileName = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear() + ' - ' + this.currentLanguageID + '.json';
-        const blob = new Blob([modelData], {type: 'text/plain;charset=utf-8'});
-        saveAs(blob, fileName);
-        this.isModelDataUnsaved = false;
-    }
 
     /**
      * Starts a transaction in GoJS
@@ -119,6 +84,15 @@ export class ModellingToolkitService {
         } else {
             this.modellingAreaComponent.diagram.commitTransaction(changedElementIdentifier + ': ' + action);
         }
+     }
+
+     onModelChanged(event: ChangedEvent) {
+      if (event.isTransactionFinished && !event.model.skipsUndoManager && event.oldValue !== 'Initial Layout') {
+        this.modelChangedSource.next({
+          modelID: this.currentModelID,
+          languageID: this.currentLanguageID
+        });
+      }
      }
 
      /**
@@ -220,9 +194,13 @@ export class ModellingToolkitService {
     }
 
     generateModelID(id: string) {
+      this.modellingAreaComponent.diagram.addModelChangedListener(this.onModelChanged.bind(this));
       if (id) {
         this.currentModelID = id;
-        this.socket.joinModelling(id, this.currentLanguageID);
+        this.readyToJoinModelSource.next({
+          modelID: this.currentModelID,
+          languageID: this.currentLanguageID
+        });
       } else {
         this.currentModelID = this.uuidv4();
         this.router.navigate([], {
@@ -230,7 +208,10 @@ export class ModellingToolkitService {
           queryParams: { collaboration: this.currentModelID },
           queryParamsHandling: 'merge'
         });
-        this.socket.addModel(this.currentModelID, this.currentLanguageID);
+        this.readyToCreateModelSource.next({
+          modelID: this.currentModelID,
+          languageID: this.currentLanguageID
+        });
       }
       this.currentModelSource.next(this.currentModelID);
     }

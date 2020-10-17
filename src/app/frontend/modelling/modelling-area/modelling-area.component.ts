@@ -9,6 +9,7 @@ import {ModellingToolkitService} from '../../../core/modelling-toolkit.service';
 import {AbstractEntity} from '../../../core/classes/abstractEntity';
 import {ElementType} from '../../../core/classes/elementTypeEnum';
 import {RelationSelectionData} from '../elements-sidebar/element-relation-selection/element-relation-selection.component';
+import {SocketService} from '../../../core/socket.service';
 @Component({
   selector: 'app-modelling-area',
   templateUrl: './modelling-area.component.html',
@@ -34,6 +35,7 @@ export class ModellingAreaComponent implements OnInit, OnDestroy, AfterViewInit 
         private loadingScreenService: LoadingScreenService,
         private modellingManager: ModellingManagerService,
         private modellingToolkit: ModellingToolkitService,
+        private socket: SocketService,
         private route: ActivatedRoute,
         private router: Router
     ) {
@@ -91,6 +93,16 @@ export class ModellingAreaComponent implements OnInit, OnDestroy, AfterViewInit 
             if (e instanceof NavigationStart) {
                 this.diagram.clear();
             }
+        });
+
+        socket.modelContent$.subscribe(value => {
+          modellingManager.rawModelData = value;
+          this.initModel
+          (
+            this.createNodeMap(),
+            this.createLinkMap(),
+            this.getModelContent()
+          );
         });
     }
 

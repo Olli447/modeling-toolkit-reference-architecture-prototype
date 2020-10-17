@@ -1,37 +1,83 @@
-import { Injectable } from '@angular/core';
-import {Observable, Subscription} from 'rxjs';
+import {Inject, Injectable} from '@angular/core';
+import {Observable, Subject, Subscription} from 'rxjs';
 import {webSocket, WebSocketSubject} from 'rxjs/webSocket';
 import {CollabortiveModel} from './classes/collabortiveModel';
 import {ModellingManagerService} from './modelling-manager.service';
+import {DataStorageService} from './data-storage.service';
+import {ModellingToolkitService} from './modelling-toolkit.service';
+import {DOCUMENT} from '@angular/common';
+import {Message} from './classes/message';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketService {
-  websocket: WebSocketSubject<any>;
+  private websocket: WebSocketSubject<any>;
   private websocketConnection: Subscription;
   uuid: string;
-  modelsAvailable: CollabortiveModel[];
+  lastModelID: string;
+  lastLanguageID: string;
+  private modelsAvailableSource: Subject<CollabortiveModel[]>;
+  modelsAvailable$: Observable<CollabortiveModel[]>;
 
-  constructor(private modellingManager: ModellingManagerService) {
+  private modelContentSource: Subject<any>;
+  modelContent$: Observable<any>;
+
+  private chatMessageSource: Subject<Message>;
+  chatMessage$: Observable<Message>;
+
+  constructor(
+    private modellingManager: ModellingManagerService,
+    private modellingToolkit: ModellingToolkitService,
+    private dataStorage: DataStorageService,
+    @Inject(DOCUMENT) private document: Document
+  ) {
+    this.modelsAvailableSource = new Subject<CollabortiveModel[]>();
+    this.modelsAvailable$ = this.modelsAvailableSource.asObservable();
+
+    this.modelContentSource = new Subject<any>();
+    this.modelContent$ = this.modelContentSource.asObservable();
+
+    this.chatMessageSource = new Subject<Message>();
+    this.chatMessage$ = this.chatMessageSource.asObservable();
+
+
     this.init();
+    modellingToolkit.readyToJoinModel$.subscribe(value => {
+      this.joinModelling(value.modelID, value.languageID);
+      this.lastModelID = value.modelID;
+      this.lastLanguageID = value.languageID;
+    });
+    modellingToolkit.readyToCreateModel$.subscribe(value => {
+      this.addModel(value.modelID, value.languageID);
+      this.lastModelID = value.modelID;
+      this.lastLanguageID = value.languageID;
+    });
+    modellingToolkit.modelChanged$.subscribe(value => {
+      this.sendModelChange(value.modelID, value.languageID);
+      this.lastModelID = value.modelID;
+      this.lastLanguageID = value.languageID;
+    });
   }
 
   init() {
-    this.websocket = webSocket('ws://localhost:8081');
+    this.websocket = webSocket({
+      url: 'ws://' + this.document.location.hostname + ':8081'
+    });
 
     this.websocketConnection = this.websocket.subscribe(
       msg => {
         this.onEvent(msg);
       }, error => {
         console.log(error);
+        this.init();
       }, () => {
         this.init();
       }
     );
   }
 
-  onEvent(value) {
+  private onEvent(value) {
     console.log(value);
     switch (value.channel) {
       case 'onConnect':
@@ -64,23 +110,27 @@ export class SocketService {
     }
   }
 
-  onConnect(value) {
+  private onConnect(value) {
+    if (this.uuid) {
+      this.joinModelling(this.lastModelID, this.lastLanguageID);
+    }
     this.uuid = value.data;
     console.log('websocket id: ' + this.uuid);
   }
 
-  onModelSelectionChange(value) {
-    this.modelsAvailable = value.data;
-    for (let i = 0; i < this.modelsAvailable.length; i++) {
-      const model = this.modelsAvailable[i];
+  private onModelSelectionChange(value) {
+    const modelsAvailable = value.data;
+    for (let i = 0; i < modelsAvailable.length; i++) {
+      const model = modelsAvailable[i];
       const language = this.modellingManager.getLanguageByID(model.languageID);
 
       if (language === undefined) {
-        this.modelsAvailable.slice(i, 1);
+        modelsAvailable.slice(i, 1);
       } else {
         model.language = language;
       }
     }
+    this.modelsAvailableSource.next(modelsAvailable);
   }
 
   addModel(modelID: string, languageID: string) {
@@ -90,7 +140,7 @@ export class SocketService {
         channel: 'addModel',
         modelID: modelID,
         languageID: languageID,
-        data: null
+        data: this.dataStorage.exportModelToJSON()
       });
     } else {
       const self = this;
@@ -100,25 +150,22 @@ export class SocketService {
           channel: 'addModel',
           modelID: modelID,
           languageID: languageID,
-          data: null
+          data: this.dataStorage.exportModelToJSON()
         });
       }, 100);
     }
   }
-  onAddModel(value) {
+  private onAddModel(value) {
     if (value.success === false) {
       console.log(value.error);
       if (value.error === 'No such user') {
         const self = this;
         setTimeout(() => {
-          this.websocket.next({
-            uuid: this.uuid,
-            channel: 'addModel',
-            modelID: value.data.modelID,
-            languageID: value.data.languageID,
-            data: null
-          });
+          self.addModel(value.data.modelID, value.data.languageID);
         }, 150);
+      }
+      if (value.error === 'Room already exists') {
+        this.joinModelling(value.data.modelID, value.data.languageID);
       }
     }
   }
@@ -144,8 +191,10 @@ export class SocketService {
     }
 
   }
-  onJoinModel(value) {
-    if (value.success === false) {
+  private onJoinModel(value) {
+    if (value.success === true) {
+      this.modelContentSource.next(value.data);
+    } else if (value.success === false) {
       if (value.error === 'No such room') {
         this.addModel(value.data.modelID, value.data.languageID);
       } else if (value.error === 'No such user') {
@@ -153,7 +202,7 @@ export class SocketService {
         setTimeout(() => {
           this.websocket.next({
             uuid: this.uuid,
-            channel: 'addModel',
+            channel: 'joinModel',
             modelID: value.data.modelID,
             languageID: value.data.languageID,
             data: null
@@ -162,17 +211,60 @@ export class SocketService {
       }
     }
   }
-  onSendModelChange(value) {
+  sendModelChange(modelID: string, languageID: string) {
+    if (this.uuid) {
+      this.websocket.next({
+        uuid: this.uuid,
+        channel: 'sendModelChange',
+        modelID: modelID,
+        languageID: languageID,
+        data: this.dataStorage.exportModelToJSON()
+      });
+    } else {
+      const self = this;
+      setTimeout(() => {
+        this.websocket.next({
+          uuid: this.uuid,
+          channel: 'sendModelChange',
+          modelID: modelID,
+          languageID: languageID,
+          data: this.dataStorage.exportModelToJSON()
+        });
+      }, 100);
+    }
+  }
+  private onSendModelChange(value) {
 
   }
-  onSendChatMessage(value) {
+  sendChatMessage(message) {
+    if (this.uuid) {
+      this.websocket.next({
+        uuid: this.uuid,
+        channel: 'sendChatMessage',
+        modelID: this.lastModelID,
+        data: message
+      });
+    } else {
+      const self = this;
+      setTimeout(() => {
+        this.websocket.next({
+          uuid: this.uuid,
+          channel: 'sendChatMessage',
+          modelID: this.lastModelID,
+          data: message
+        });
+      }, 100);
+    }
+  }
+  private onSendChatMessage(value) {
 
   }
-  onModelChange(value) {
-
+  private onModelChange(value) {
+    this.modelContentSource.next(value.data);
   }
-  onMessage(message) {
-    console.log(message);
+
+  private onMessage(value) {
+    this.chatMessageSource.next(value.data);
   }
 
   private onHeartbeat(value) {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ModellingToolkitService} from '../../../core/modelling-toolkit.service';
+import {DataStorageService} from '../../../core/data-storage.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -9,17 +10,17 @@ import {ModellingToolkitService} from '../../../core/modelling-toolkit.service';
 export class ToolbarComponent implements OnInit {
 
   constructor(
-      private modellingToolkit: ModellingToolkitService
+      private dataStorage: DataStorageService
   ) { }
 
   ngOnInit() {
   }
 
   saveModel() {
-      this.modellingToolkit.saveModel();
+      this.dataStorage.saveModel();
   }
 
   exportModel() {
-      this.modellingToolkit.exportModel();
+      this.dataStorage.exportModel();
   }
 }

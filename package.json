@@ -26,7 +26,6 @@
     "event-stream": "^4.0.1",
     "file-saver": "^2.0.2",
     "gojs": "^2.0.13",
-    "ngx-socket-io": "^3.2.0",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

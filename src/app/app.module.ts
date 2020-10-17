@@ -9,9 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ServiceModule} from './service/service.module';
 import {UmlClassDiagramModule} from './uml-class-diagram/uml-class-diagram.module';
 import {CoreModule} from './core/core.module';
-import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
-
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
   declarations: [
@@ -25,7 +22,6 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     CoreModule,
     ServiceModule,
     UmlClassDiagramModule,
-    SocketIoModule.forRoot(config)
   ],
   providers: [],
   bootstrap: [AppComponent],
